@@ -1,0 +1,26 @@
+<h2>Shop by Category</h2>
+<p>Browse our wide selection of tech categories</p>
+<div class="categories">
+    @for (Category of featuredCategories(); track Category.id){
+        <div class="category">
+            <img [ngSrc]="Category.imageUrl" [alt]="Category.name" width="64" height="64">
+            <h3>{{Category.name}}</h3>
+            <p>{{Category.productCount}} products</p>
+        </div>
+
+    }
+</div>
+<h2>Featured Products</h2>
+<p>Handpicked tech essentials just for you</p>
+<div class="products">
+    @for(product of products(); track product.id ){
+        <div class="product">
+            <img [ngSrc]="product.imageUrl" [alt]="product.name" width="240" height="240">
+            <p>{{ product.category.name }} • {{ product.brand }}</p>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.rating }}</p>
+            <p>USD {{ product.price }}</p>
+
+        </div>
+    }
+</div>
