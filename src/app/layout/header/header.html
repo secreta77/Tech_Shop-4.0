@@ -1,13 +1,22 @@
-<header>
-    <a routerLink="/" class="logo">STEP TECH</a>
-
-
-    <nav>
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
-        <a routerLink="/shop" routerLinkActive="active" >Shop</a>
-    </nav>
-
-
-    <input type="search" class="search" placeholder="Search Products...">
-    <a routerLink="/login" class="sign-in">Sign In</a>
-</header>
+<header class="header">
+    <div class="header__inner">
+      <a routerLink="/" class="logo">
+        <span class="logo__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          </svg>
+        </span>
+        <span class="logo__text">STEP TECH</span>
+      </a>
+  
+      <nav class="nav">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a routerLink="/shop" routerLinkActive="active">Shop</a>
+      </nav>
+  
+      <input type="search" class="search" placeholder="Search products..." />
+  
+      <a routerLink="/login" class="sign-in">Sign In</a>
+    </div>
+  </header>
