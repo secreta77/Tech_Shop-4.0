@@ -4,11 +4,13 @@ import { CategoriesService } from '../../../categories/data-access/categories.se
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CategoryCard } from '../../../categories/components/category-card/category-card';
 
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage,RouterLink,CategoryCard],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,60 @@
+@use '../../../../../styles/variables' as *;
+
+.section {
+  padding: 4rem 0;
+}
+
+.section--gray {
+  background-color: $color-bg;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.section__head h2 {
+  color: $color-dark;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.section__head p {
+  margin-top: 0.5rem;
+  color: $color-text-muted;
+}
+
+.view-all {
+  color: $color-primary;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.categories,
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 64rem) {
+  .categories,
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  .categories,
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
