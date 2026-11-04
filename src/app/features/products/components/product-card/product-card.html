@@ -1,0 +1,34 @@
+<div class="card" [class.card--sold-out]="soldOut()">
+  <div class="card__image">
+    <img [ngSrc]="product().imageUrl" [alt]="product().name" fill />
+    @if (soldOut()) {
+      <span class="card__badge">SOLD OUT</span>
+    }
+  </div>
+
+  <div class="card__body">
+    <p class="card__meta">
+      <span class="card__category">{{ product().category.name }}</span>
+      <span class="card__brand">• {{ product().brand }}</span>
+    </p>
+
+    <h3 class="card__name">{{ product().name }}</h3>
+
+    <div class="card__rating">
+      @for (star of stars; track star) {
+        <span class="star" [class.star--filled]="star <= filledStars()">★</span>
+      }
+      <span class="card__rating-number">{{ product().rating | number: '1.1-1' }}</span>
+    </div>
+
+    <p class="card__price">USD {{ product().price | number: '1.0-0' }}</p>
+
+    <button type="button" class="card__button" [disabled]="soldOut()">
+      @if (soldOut()) {
+        Out of Stock
+      } @else {
+        Add to Cart
+      }
+    </button>
+  </div>
+</div>

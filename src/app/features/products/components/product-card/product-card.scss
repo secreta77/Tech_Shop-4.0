@@ -1,0 +1,130 @@
+@use '../../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  background-color: $color-surface;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: $color-primary;
+  box-shadow: 0 0.25rem 1rem rgba(24, 175, 72, 0.15);
+}
+
+.card__image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: $color-bg;
+}
+
+.card__image img {
+  object-fit: cover;
+}
+
+.card--sold-out .card__image img {
+  opacity: 0.4;
+}
+
+.card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: $radius-sm;
+  background-color: $color-dark;
+  color: $color-surface;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+}
+
+.card__meta {
+  font-size: 0.75rem;
+}
+
+.card__category {
+  color: $color-primary;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.card__brand {
+  color: $color-text-muted;
+}
+
+.card__name {
+  display: -webkit-box;
+  overflow: hidden;
+  color: $color-dark;
+  font-size: 1rem;
+  font-weight: 600;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.star {
+  color: $color-border;
+}
+
+.star--filled {
+  color: #f5b301;
+}
+
+.card__rating-number {
+  margin-left: 0.5rem;
+  color: $color-text-muted;
+  font-size: 0.85rem;
+}
+
+.card__price {
+  color: $color-dark;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.card__button {
+  margin-top: auto;
+  padding: 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background-color: $color-bg;
+  color: $color-dark;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card__button:hover:not(:disabled) {
+  border-color: $color-primary;
+  color: $color-primary;
+}
+
+.card__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

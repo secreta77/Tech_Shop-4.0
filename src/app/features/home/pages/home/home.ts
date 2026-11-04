@@ -3,14 +3,14 @@ import { ProductsService } from '../../../products/data-access/products.service'
 import { CategoriesService } from '../../../categories/data-access/categories.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CategoryCard } from '../../../categories/components/category-card/category-card';
+import { ProductCard } from '../../../products/components/product-card/product-card';
 
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage,RouterLink,CategoryCard],
+  imports: [RouterLink, CategoryCard, ProductCard],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,
