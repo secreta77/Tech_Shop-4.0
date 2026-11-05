@@ -57,7 +57,7 @@ export class Register {
             );
             await this.router.navigate(['/verify-email'], { queryParams: { email: data.email } });
           } catch {
-            // errorInterceptor already showed the error toast
+
           }
         },
       },
