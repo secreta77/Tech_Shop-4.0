@@ -17,6 +17,10 @@
   
       <input type="search" class="search" placeholder="Search products..." />
   
-      <a routerLink="/login" class="sign-in">Sign In</a>
+      @if (isLoggedIn()) {
+        <button type="button" class="sign-in" (click)="logout()">Logout</button>
+      } @else {
+        <a routerLink="/login" class="sign-in">Sign In</a>
+      }
     </div>
   </header>

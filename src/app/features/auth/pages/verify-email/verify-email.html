@@ -1,29 +1,40 @@
-<h1>Verify Your Email</h1>
-
-@if (email) {
-  <p>We sent a verification code to <strong>{{ email }}</strong></p>
-
-  <form [formRoot]="verifyFrom" class="form">
-    <div class="field">
-      <label for="code">Verification Code</label>
-      <input type="text" id="code" [formField]="verifyFrom.code" />
-      @if (verifyFrom.code().touched()) {
-        @for (error of verifyFrom.code().errors(); track error.kind) {
-          <p class="error">{{ error.message }}</p>
+<app-auth-layout
+  icon="bi bi-envelope-check"
+  title="Verify your email"
+  [subtitle]="email ? 'We sent a code to ' + email : 'No email provided'"
+  description="One last step to activate your account and start shopping."
+  [features]="features"
+>
+  @if (email) {
+    <form [formRoot]="verifyFrom" class="form">
+      <div class="field">
+        <label for="code" class="sr-only">Verification code</label>
+        <div class="input">
+          <i class="bi bi-key"></i>
+          <input type="text" id="code" placeholder="Verification code" [formField]="verifyFrom.code" />
+        </div>
+        @if (verifyFrom.code().touched()) {
+          @for (error of verifyFrom.code().errors(); track error.kind) {
+            <p class="error">{{ error.message }}</p>
+          }
         }
-      }
-    </div>
+      </div>
 
-    <button type="submit" [disabled]="verifyFrom().submitting()">
-      @if (verifyFrom().submitting()) {
-        Verifying...
-      } @else {
-        Verify
-      }
-    </button>
-  </form>
+      <button type="submit" class="btn-primary" [disabled]="verifyFrom().submitting()">
+        @if (verifyFrom().submitting()) {
+          Verifying...
+        } @else {
+          Verify
+        }
+      </button>
 
-  <p>Didn't get a code? <button type="button" class="link" (click)="resend()">Resend</button></p>
-} @else {
-  <p>No email provided. <a routerLink="/register">Go to Register</a></p>
-}
+      <p class="form-footer">
+        Didn't get a code? <button type="button" class="link" (click)="resend()">Resend</button>
+      </p>
+    </form>
+  } @else {
+    <p class="form-footer">
+      <a routerLink="/register" class="link">Go to Register</a>
+    </p>
+  }
+</app-auth-layout>

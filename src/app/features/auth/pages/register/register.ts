@@ -3,15 +3,23 @@ import { email, form, FormField, FormRoot, minLength, required, validate } from 
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../data-access/auth.service';
+import { AuthLayout } from '../../components/auth-layout/auth-layout';
+import { AuthFeature } from '../../models/auth.model';
 
 @Component({
   selector: 'app-register',
-  imports: [FormField, FormRoot, RouterLink],
+  imports: [FormField, FormRoot, RouterLink, AuthLayout],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {
+  protected readonly features: AuthFeature[] = [
+    { icon: 'bi bi-shield-check', title: 'Fast & Secure', text: 'Enterprise-grade security to keep your data safe' },
+    { icon: 'bi bi-lightning-charge', title: 'Lightning Speed', text: 'Experience blazing fast performance' },
+    { icon: 'bi bi-headset', title: '24/7 Support', text: 'Our team is always here to help you succeed' },
+  ];
+
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 

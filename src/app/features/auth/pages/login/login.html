@@ -1,38 +1,56 @@
-<h1>Sign In</h1>
-
-<form [formRoot]="loginForm" class="form">
-  <div class="field">
-    <label for="email">Email</label>
-    <input type="email" id="email" [formField]="loginForm.email" />
-    @if (loginForm.email().touched()) {
-      @for (error of loginForm.email().errors(); track error.kind) {
-        <p class="error">{{ error.message }}</p>
+<app-auth-layout
+  icon="bi bi-box-arrow-in-right"
+  title="Welcome Back"
+  subtitle="Sign in to continue shopping"
+  description="Access exclusive deals and manage your orders with your account."
+  [stats]="stats"
+>
+  <form [formRoot]="loginForm" class="form">
+    <div class="field">
+      <label for="email" class="sr-only">Email</label>
+      <div class="input">
+        <i class="bi bi-envelope"></i>
+        <input type="email" id="email" placeholder="Email address" [formField]="loginForm.email" />
+      </div>
+      @if (loginForm.email().touched()) {
+        @for (error of loginForm.email().errors(); track error.kind) {
+          <p class="error">{{ error.message }}</p>
+        }
       }
-    }
-  </div>
+    </div>
 
-  <div class="field">
-    <label for="password">Password</label>
-    <input type="password" id="password" [formField]="loginForm.password" />
-    @if (loginForm.password().touched()) {
-      @for (error of loginForm.password().errors(); track error.kind) {
-        <p class="error">{{ error.message }}</p>
+    <div class="field">
+      <label for="password" class="sr-only">Password</label>
+      <div class="input">
+        <i class="bi bi-lock"></i>
+        <input type="password" id="password" placeholder="Password" [formField]="loginForm.password" />
+      </div>
+      @if (loginForm.password().touched()) {
+        @for (error of loginForm.password().errors(); track error.kind) {
+          <p class="error">{{ error.message }}</p>
+        }
       }
-    }
-  </div>
+    </div>
 
-  <label class="checkbox">
-    <input type="checkbox" [formField]="loginForm.remember" />
-    Remember me
-  </label>
+    <div class="form__options">
+      <label class="checkbox">
+        <input type="checkbox" [formField]="loginForm.remember" />
+        Remember me
+      </label>
+    </div>
 
-  <button type="submit" [disabled]="loginForm().submitting()">
-    @if (loginForm().submitting()) {
-      Signing in...
-    } @else {
-      Sign In
-    }
-  </button>
-</form>
+    <button type="submit" class="btn-primary" [disabled]="loginForm().submitting()">
+      @if (loginForm().submitting()) {
+        Signing in...
+      } @else {
+        Sign In
+      }
+    </button>
 
-<p>Don't have an account? <a routerLink="/register">Create one</a></p>
+    <div class="divider">or</div>
+
+    <p class="form-footer">
+      Don't have an account? <a routerLink="/register" class="link">Create one now</a>
+    </p>
+  </form>
+</app-auth-layout>

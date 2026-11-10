@@ -3,15 +3,23 @@ import { email, form, FormField, FormRoot, required } from '@angular/forms/signa
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../data-access/auth.service';
+import { AuthLayout } from '../../components/auth-layout/auth-layout';
+import { AuthStat } from '../../models/auth.model';
 
 @Component({
   selector: 'app-login',
-  imports: [FormField, FormRoot, RouterLink],
+  imports: [FormField, FormRoot, RouterLink, AuthLayout],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
+  protected readonly stats: AuthStat[] = [
+    { value: '50K+', label: 'Products' },
+    { value: '200+', label: 'Brands' },
+    { value: '24/7', label: 'Support' },
+  ];
+
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 

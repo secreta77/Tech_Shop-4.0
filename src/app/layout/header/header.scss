@@ -93,3 +93,9 @@
 .sign-in:hover {
   filter: brightness(0.95);
 }
+
+button.sign-in {
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+}

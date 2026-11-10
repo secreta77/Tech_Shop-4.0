@@ -22,3 +22,14 @@ export interface VerifyEmailRequest {
     accessToken: string;
     refreshToken: string;
   }
+
+export interface AuthStat {
+  value: string;
+  label: string;
+}
+
+export interface AuthFeature {
+  icon: string;
+  title: string;
+  text: string;
+}

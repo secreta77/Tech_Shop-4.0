@@ -1,0 +1,41 @@
+<div class="auth">
+  <aside class="auth__brand">
+    <span class="auth__logo"><i class="bi bi-briefcase"></i></span>
+    <h2 class="auth__brand-title">STEP TECH</h2>
+    <p class="auth__brand-text">{{ description() }}</p>
+
+    @if (stats().length) {
+      <div class="auth__stats">
+        @for (stat of stats(); track stat.label) {
+          <div class="auth__stat">
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+    }
+
+    @if (features().length) {
+      <ul class="auth__features">
+        @for (feature of features(); track feature.title) {
+          <li class="auth__feature">
+            <span class="auth__feature-icon"><i [class]="feature.icon"></i></span>
+            <div class="auth__feature-text">
+              <strong>{{ feature.title }}</strong>
+              <span>{{ feature.text }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </aside>
+
+  <section class="auth__form-side">
+    <div class="auth__card">
+      <span class="auth__icon"><i [class]="icon()"></i></span>
+      <h1>{{ title() }}</h1>
+      <p class="auth__subtitle">{{ subtitle() }}</p>
+      <ng-content />
+    </div>
+  </section>
+</div>
