@@ -12,5 +12,6 @@ import { ToastContainer } from './layout/toast-container/toast-container';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
+  
 
 }
