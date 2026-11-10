@@ -1,0 +1,65 @@
+@use '../../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  background-color: $color-surface;
+  text-align: center;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.benefit:hover {
+  border-color: $color-primary;
+  box-shadow: 0 0.25rem 1rem rgba(24, 175, 72, 0.15);
+}
+
+.benefit__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: $radius-md;
+  background-color: $color-primary-light;
+  color: $color-primary;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: $color-dark;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+p {
+  color: $color-text-muted;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 64rem) {
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+}

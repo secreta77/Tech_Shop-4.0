@@ -1,0 +1,9 @@
+<div class="benefits">
+  @for (item of items(); track item.title) {
+    <div class="benefit">
+      <span class="benefit__icon"><i [class]="item.icon"></i></span>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.text }}</p>
+    </div>
+  }
+</div>
