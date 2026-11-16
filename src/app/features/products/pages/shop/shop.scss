@@ -1,0 +1,55 @@
+@use '../../../../../styles/variables' as *;
+
+.shop-hero {
+  padding: 3rem 0;
+  background-color: $color-bg;
+  border-bottom: 1px solid $color-border;
+}
+
+.shop-hero h1 {
+  color: $color-dark;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.shop-hero p {
+  margin-top: 0.5rem;
+  color: $color-text-muted;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.shop {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.shop__count {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+}
+
+.shop__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 64rem) {
+  .shop__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  .shop__grid {
+    grid-template-columns: 1fr;
+  }
+}

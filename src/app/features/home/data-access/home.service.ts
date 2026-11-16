@@ -14,8 +14,8 @@ export class HomeService {
   );
 
   readonly featuredProducts$ = this.productsService
-    .getProducts(4, 1)
-    .pipe(map((page) => page.items));
+      .getFiltered({take:4,page:1,sortBy:"rating",sortDescending:true})
+      .pipe(map((page)=>page.items))
 
   readonly benefits: Benefit[] = [
     { icon: 'bi bi-truck', title: 'Free Shipping', text: 'On orders over $100' },
