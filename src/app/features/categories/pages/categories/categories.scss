@@ -1,0 +1,44 @@
+@use '../../../../../styles/variables' as *;
+
+.categories-hero {
+  padding: 3rem 0;
+  background-color: $color-bg;
+  border-bottom: 1px solid $color-border;
+}
+
+.categories-hero h1 {
+  color: $color-dark;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.categories-hero p {
+  margin-top: 0.5rem;
+  color: $color-text-muted;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+@media (max-width: 64rem) {
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  .categories {
+    grid-template-columns: 1fr;
+  }
+}

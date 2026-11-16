@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Category } from '../../models/category.model';
 
 @Component({
@@ -6,6 +6,7 @@ import { Category } from '../../models/category.model';
   imports: [],
   templateUrl: './category-card.html',
   styleUrl: './category-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryCard {
   readonly category = input.required<Category>();

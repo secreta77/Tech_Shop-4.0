@@ -1,0 +1,12 @@
+<section class="categories-hero">
+    <div class="container">
+      <h1>All Categories</h1>
+      <p>Browse our wide selection of tech categories</p>
+    </div>
+  </section>
+  
+  <section class="container categories">
+    @for (category of categories(); track category.id) {
+      <app-category-card [category]="category" />
+    }
+  </section>
