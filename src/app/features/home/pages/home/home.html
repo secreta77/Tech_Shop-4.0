@@ -1,3 +1,4 @@
+<app-hero />
 <section class="section">
     <div class="container">
       <div class="section__head">
@@ -9,8 +10,8 @@
       </div>
   
       <div class="categories">
-        @for (category of featuredCategories(); track category.id) {
-          <app-category-card [category]="category" />
+        @for (category of featuredCategories(); track category.id; let isFirst = $first) {
+          <app-category-card [category]="category" [priority]="isFirst" />
         }
       </div>
     </div>
@@ -27,8 +28,8 @@
       </div>
   
       <div class="products">
-        @for (product of products(); track product.id) {
-            <app-product-card [product]="product" />
+        @for (product of products(); track product.id; let isFirst = $first) {
+            <app-product-card [product]="product" [priority]="isFirst" />
         }
       </div>
     </div>

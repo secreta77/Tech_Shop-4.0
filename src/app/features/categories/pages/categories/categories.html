@@ -6,7 +6,7 @@
   </section>
   
   <section class="container categories">
-    @for (category of categories(); track category.id) {
-      <app-category-card [category]="category" />
+    @for (category of categories(); track category.id; let isFirst = $first) {
+      <app-category-card [category]="category" [priority]="isFirst" />
     }
   </section>

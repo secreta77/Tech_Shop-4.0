@@ -28,7 +28,37 @@ export class ProductsService {
       params = params
         .set('SortBy', query.sortBy)
         .set('SortDescending', query.sortDescending ?? false);
+
+
+    
     }
+
+
+    if(query.search){
+      params = params.set("Search",query.search)
+    }
+
+    if(query.brand){
+      params =params.set("Brand",query.brand)
+    }
+
+    if(query.inStock){
+      params = params.set("InStock",query.inStock)
+    }
+
+    if (query.categoryId) {
+      params = params.set('CategoryId', query.categoryId);
+    }
+    if (query.minRating) {
+      params = params.set('MinRating', query.minRating);
+    }
+    if (query.minPrice !== undefined) {
+      params = params.set('MinPrice', query.minPrice);
+    }
+    if (query.maxPrice !== undefined) {
+      params = params.set('MaxPrice', query.maxPrice);
+    }
+
 
     return this.http
       .get<ApiResponse<Paginated<Product>>>(`${environment.apiUrl}/api/products/filter`, { params })

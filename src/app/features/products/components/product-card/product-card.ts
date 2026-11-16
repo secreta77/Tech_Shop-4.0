@@ -11,6 +11,7 @@ import { Product } from '../../models/product.model';
 })
 export class ProductCard {
   readonly product = input.required<Product>();
+  readonly priority = input(false);
 
   readonly stars = [1, 2, 3, 4, 5];
   readonly filledStars = computed(() => Math.round(this.product().rating));

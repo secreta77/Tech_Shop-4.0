@@ -5,10 +5,11 @@ import { CategoryCard } from '../../../categories/components/category-card/categ
 import { ProductCard } from '../../../products/components/product-card/product-card';
 import { Benefits } from '../../components/benefits/benefits';
 import { HomeService } from '../../data-access/home.service';
+import { Hero } from '../../components/hero/hero';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CategoryCard, ProductCard, Benefits],
+  imports: [RouterLink, CategoryCard, ProductCard, Benefits,Hero],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

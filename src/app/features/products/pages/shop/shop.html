@@ -9,8 +9,8 @@
     <p class="shop__count">{{ totalCount() }} products</p>
   
     <div class="shop__grid">
-      @for (product of products(); track product.id) {
-        <app-product-card [product]="product" />
+      @for (product of products(); track product.id; let isFirst = $first) {
+        <app-product-card [product]="product" [priority]="isFirst" />
       }
     </div>
   

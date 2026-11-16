@@ -1,6 +1,6 @@
 <div class="card" [class.card--sold-out]="soldOut()">
   <div class="card__image">
-    <img [ngSrc]="product().imageUrl" [alt]="product().name" fill />
+    <img [ngSrc]="product().imageUrl" [alt]="product().name" [priority]="priority()" fill />
     @if (soldOut()) {
       <span class="card__badge">SOLD OUT</span>
     }
