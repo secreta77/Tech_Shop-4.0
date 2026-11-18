@@ -15,11 +15,16 @@ export class ShopFilters {
   readonly minRating = input<number | undefined>(undefined);
   readonly minPrice = input<number | undefined>(undefined);
   readonly maxPrice = input<number | undefined>(undefined);
+  readonly brand = input('')
+  readonly inStock = input(false)
 
   readonly categoryChange = output<number | null>();
   readonly ratingChange = output<number | null>();
   readonly minPriceChange = output<number | null>();
   readonly maxPriceChange = output<number | null>();
+  readonly brandChange = output<string | null>();
+  readonly inStockChange = output<boolean>();
+  readonly cleared = output<void>();
 
   protected readonly ratings = [4, 3, 2, 1];
   protected readonly stars = [1, 2, 3, 4, 5];
@@ -44,4 +49,17 @@ export class ShopFilters {
     const value = (event.target as HTMLInputElement).value;
     return value === '' ? null : Number(value);
   }
+
+  protected onBrand(event:Event):void{
+    const value =(event.target as HTMLInputElement).value.trim()
+    this.brandChange.emit(value === '' ? null : value)
+
+  }
+
+  protected onInStock(event:Event):void{
+    this.inStockChange.emit((event.target as HTMLInputElement).checked)
+  }
+
+
+
 }

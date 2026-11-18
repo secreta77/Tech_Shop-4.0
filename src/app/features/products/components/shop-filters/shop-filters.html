@@ -1,3 +1,4 @@
+
 <aside class="filters">
   <h3>Filters</h3>
 
@@ -67,6 +68,38 @@
           (change)="onMaxPrice($event)"
         />
       </div>
+
+
+
     </div>
+
+
+
   </div>
+
+  <div class="filters__group">
+    <h4>Brand</h4>
+
+    <input
+      class="search"
+      type="text"
+      placeholder="Search brands..."
+      [value]="brand()"
+      (change)="onBrand($event)"
+    />
+  </div>
+
+  <div class="filters__group">
+    <h4>Availability</h4>
+
+    <label class="option option--checkbox">
+      <input type="checkbox" [checked]="inStock()" (change)="onInStock($event)" />
+      <span class="option__box"></span>
+      <span class="option__label">In Stock Only</span>
+    </label>
+  </div>
+
+  <button type="button" class="clear" (click)="cleared.emit()">
+    <i class="bi bi-arrow-counterclockwise"></i> Clear All Filters
+  </button>
 </aside>

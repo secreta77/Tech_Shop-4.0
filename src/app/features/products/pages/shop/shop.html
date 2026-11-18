@@ -12,10 +12,15 @@
   [minRating]="minRating()"
   [minPrice]="minPrice()"
   [maxPrice]="maxPrice()"
+  [brand]="brand()"
+  [inStock]="inStock()"
   (categoryChange)="filterChange({ category: $event })"
   (ratingChange)="filterChange({ rating: $event })"
   (minPriceChange)="filterChange({ minPrice: $event })"
   (maxPriceChange)="filterChange({ maxPrice: $event })"
+  (brandChange)="filterChange({ brand: $event })"
+  (inStockChange)="filterChange({ inStock: $event || null })"
+  (cleared)="clearFilters()"
 />
 
   <div class="shop-results">

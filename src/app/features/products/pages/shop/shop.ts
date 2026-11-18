@@ -36,6 +36,8 @@ export class Shop {
   protected readonly minRating = computed(()=>this.numberParam('rating'))
   protected readonly minPrice = computed(()=>this.numberParam("minPrice"))
   protected readonly maxPrice = computed(()=>this.numberParam("maxPrice"))
+  protected readonly brand  = computed(()=>this.params().get("brand") ?? '')
+  protected readonly inStock = computed(()=>this.params().get("inStock")==="true")
 
   private readonly query = computed<ProductQuery>(() => ({
     take: this.pageSize(),
@@ -43,8 +45,8 @@ export class Shop {
     sortBy: 'rating',
     sortDescending: true,
     search: this.params().get('search') ?? undefined,
-    brand: this.params().get('brand') ?? undefined,
-    inStock: this.params().get('inStock') === 'true',
+    brand: this.brand() || undefined,
+    inStock: this.inStock(),
     categoryId: this.categoryId(),
     minRating: this.minRating(),
     minPrice: this.minPrice(),
@@ -71,6 +73,19 @@ export class Shop {
   protected filterChange(changes: Params): void {
     this.updateParams({ ...changes, page: 1 });
   }
+
+    protected clearFilters(): void {
+      this.updateParams({
+        category: null,
+        rating: null,
+        minPrice: null,
+        maxPrice: null,
+        brand: null,
+        inStock: null,
+        search: null,
+        page: 1,
+      });
+    }
 
   protected updateParams(changes: Params): void {
     this.router.navigate([], {
