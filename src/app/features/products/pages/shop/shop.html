@@ -1,19 +1,32 @@
 <section class="shop-hero">
-    <div class="container">
-      <h1>All Products</h1>
-      <p>Discover our full range of tech products</p>
-    </div>
-  </section>
-  
-  <section class="container shop">
+  <div class="container">
+    <h1>All Products</h1>
+    <p>Discover our full range of tech products</p>
+  </div>
+</section>
+
+<section class="container shop-layout">
+  <app-shop-filters
+  [categories]="categories()"
+  [selectedCategory]="categoryId()"
+  [minRating]="minRating()"
+  [minPrice]="minPrice()"
+  [maxPrice]="maxPrice()"
+  (categoryChange)="filterChange({ category: $event })"
+  (ratingChange)="filterChange({ rating: $event })"
+  (minPriceChange)="filterChange({ minPrice: $event })"
+  (maxPriceChange)="filterChange({ maxPrice: $event })"
+/>
+
+  <div class="shop-results">
     <p class="shop__count">{{ totalCount() }} products</p>
-  
+
     <div class="shop__grid">
       @for (product of products(); track product.id; let isFirst = $first) {
         <app-product-card [product]="product" [priority]="isFirst" />
       }
     </div>
-  
+
     <app-pagination
       [currentPage]="page()"
       [totalPages]="totalPages()"
@@ -21,4 +34,5 @@
       (pageChange)="changePage($event)"
       (pageSizeChange)="changePageSize($event)"
     />
-  </section>
+  </div>
+</section>

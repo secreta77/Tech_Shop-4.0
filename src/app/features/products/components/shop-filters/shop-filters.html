@@ -1,0 +1,72 @@
+<aside class="filters">
+  <h3>Filters</h3>
+
+  <div class="filters__group">
+    <h4>Categories</h4>
+
+    @for (category of categories(); track category.id) {
+      <button
+        type="button"
+        class="option"
+        [class.option--selected]="selectedCategory() === category.id"
+        (click)="toggleCategory(category.id)"
+      >
+        <span class="option__radio"></span>
+        <span class="option__label">{{ category.name }}</span>
+        <span class="option__count">{{ category.productCount }}</span>
+      </button>
+    }
+  </div>
+
+  <div class="filters__group">
+    <h4><i class="bi bi-star"></i> Min Rating</h4>
+
+    @for (rating of ratings; track rating) {
+      <button
+        type="button"
+        class="rating"
+        [class.rating--active]="minRating() === rating"
+        (click)="toggleRating(rating)"
+      >
+        <span class="rating__stars">
+          @for (star of stars; track star) {
+            <span class="star" [class.star--filled]="star <= rating">★</span>
+          }
+        </span>
+        <span class="rating__text">{{ rating }} &amp; up</span>
+      </button>
+    }
+  </div>
+
+  <div class="filters__group">
+    <h4>Price Range</h4>
+
+    <div class="price">
+      <div class="price__field">
+        <label for="minPrice">Min</label>
+        <input
+          id="minPrice"
+          type="number"
+          min="0"
+          placeholder="$0"
+          [value]="minPrice() ?? ''"
+          (change)="onMinPrice($event)"
+        />
+      </div>
+
+      <span class="price__separator">-</span>
+
+      <div class="price__field">
+        <label for="maxPrice">Max</label>
+        <input
+          id="maxPrice"
+          type="number"
+          min="0"
+          placeholder="$9999"
+          [value]="maxPrice() ?? ''"
+          (change)="onMaxPrice($event)"
+        />
+      </div>
+    </div>
+  </div>
+</aside>
