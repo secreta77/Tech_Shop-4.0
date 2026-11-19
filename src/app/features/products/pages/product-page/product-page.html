@@ -60,6 +60,8 @@
         </div>
       }
     </section>
+
+    <app-reviews-section [productId]="item.id" />
   } @else if (loading()) {
     <div class="product">
       <div class="skeleton skeleton--image"></div>

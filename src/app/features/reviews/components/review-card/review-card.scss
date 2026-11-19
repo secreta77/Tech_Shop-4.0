@@ -1,0 +1,58 @@
+@use '../../../../../styles/variables' as *;
+
+.review {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+}
+
+.review__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.review__avatar--initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-primary;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.review__info {
+  flex: 1;
+}
+
+.review__name {
+  margin: 0;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.review__date {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: $color-text-muted;
+}
+
+.review__stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.star {
+  color: $color-border;
+  font-size: 1.125rem;
+}
+
+.star--filled {
+  color: #f5b301;
+}

@@ -3,11 +3,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { ReviewsSection } from '../../../reviews/pages/reviews-section/reviews-section';
 import { ProductsService } from '../../data-access/products.service';
 
 @Component({
   selector: 'app-product-page',
-  imports: [DecimalPipe, NgOptimizedImage, RouterLink],
+  imports: [DecimalPipe, NgOptimizedImage, RouterLink, ReviewsSection],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
