@@ -36,7 +36,7 @@
       </div>
 
       <div class="shop-toolbar__right">
-        <p class="shop__count">{{ totalCount() }} products</p>
+        <p class="shop__count">{{ loading() ? 'Loading...' : totalCount() + ' products' }}</p>
 
         <select class="shop-toolbar__sort" (change)="onSort($event)">
           @for (option of sortOptions; track option.value) {
@@ -48,7 +48,23 @@
       </div>
     </div>
 
-    <div class="shop__grid">
+    @if (activeFilters().length) {
+      <div class="chips">
+        @for (chip of activeFilters(); track chip.key) {
+          <button type="button" class="chip" (click)="removeFilter(chip.key)">
+            {{ chip.label }} <i class="bi bi-x"></i>
+          </button>
+        }
+      </div>
+    }
+
+    <div class="shop__grid" [class.shop__grid--loading]="loading()">
+      @if (loading() && products().length === 0) {
+        @for (item of skeletons; track $index) {
+          <div class="skeleton"></div>
+        }
+      }
+
       @for (product of products(); track product.id; let isFirst = $first) {
         <app-product-card [product]="product" [priority]="isFirst" />
       }

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, of, Subject, switchMap, tap } from 'rxjs';
 import { Pagination } from '../../../../shared/components/pagination/pagination';
 import { CategoriesService } from '../../../categories/data-access/categories.service';
 import { ProductCard } from '../../components/product-card/product-card';
@@ -73,8 +73,17 @@ export class Shop {
     maxPrice: this.maxPrice(),
   }));
 
+  protected readonly loading = signal(true);
+  protected readonly skeletons = Array.from({ length: 8 });
+
   private readonly result = toSignal(
-    toObservable(this.query).pipe(switchMap((query) => this.productsService.getFiltered(query))),
+    toObservable(this.query).pipe(
+      tap(() => this.loading.set(true)),
+      switchMap((query) =>
+        this.productsService.getFiltered(query).pipe(catchError(() => of(null))),
+      ),
+      tap(() => this.loading.set(false)),
+    ),
     { initialValue: null },
   );
 
@@ -102,12 +111,35 @@ export class Shop {
     this.updateParams({ ...changes, page: 1 });
   }
 
+
+    protected readonly activeFilters = computed(() => {
+      const chips: { key: string; label: string }[] = [];
+
+      const category = this.categories().find((item) => item.id === this.categoryId());
+  
+      if (category) chips.push({ key: 'category', label: `Category: ${category.name}` });
+      if (this.minRating()) chips.push({ key: 'rating', label: `Rating: ${this.minRating()}★ & up` });
+
+      if (this.minPrice() !== undefined) chips.push({ key: 'minPrice', label: `Min price: $${this.minPrice()}` });
+      if (this.maxPrice() !== undefined) chips.push({ key: 'maxPrice', label: `Max price: $${this.maxPrice()}` });
+      if (this.brand()) chips.push({ key: 'brand', label: `Brand: ${this.brand()}` });
+      if (this.inStock()) chips.push({ key: 'inStock', label: 'In Stock only' });
+      if (this.search()) chips.push({ key: 'search', label: `Search: ${this.search()}` });
+  
+      return chips;
+    });
+  
+
+    protected removeFilter(key: string): void {
+      this.filterChange({ [key]: null });
+    }
+
   protected onSearch(event:Event):void{
     this.searchInput$.next((event.target as HTMLInputElement).value)
   }
 
   protected onSort(event:Event):void{
-    this.filterChange({sort:(event.target as HTMLInputElement).value})
+    this.filterChange({sort:(event.target as HTMLSelectElement).value})
   }
   
 
