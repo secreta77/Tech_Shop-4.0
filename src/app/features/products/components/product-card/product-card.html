@@ -1,10 +1,10 @@
 <div class="card" [class.card--sold-out]="soldOut()">
-  <div class="card__image">
+  <a class="card__image" [routerLink]="['/products', product().id]">
     <img [ngSrc]="product().imageUrl" [alt]="product().name" [priority]="priority()" fill />
     @if (soldOut()) {
       <span class="card__badge">SOLD OUT</span>
     }
-  </div>
+  </a>
 
   <div class="card__body">
     <p class="card__meta">
@@ -12,7 +12,9 @@
       <span class="card__brand">• {{ product().brand }}</span>
     </p>
 
-    <h3 class="card__name">{{ product().name }}</h3>
+    <h3 class="card__name">
+      <a [routerLink]="['/products', product().id]">{{ product().name }}</a>
+    </h3>
 
     <div class="card__rating">
       @for (star of stars; track star) {

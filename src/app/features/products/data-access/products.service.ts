@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { Paginated } from '../../../core/models/paginated.model';
+import { ProductDetail } from '../models/product-detail.model';
 import { ProductQuery } from '../models/product-query.model';
 import { Product } from '../models/product.model';
 
@@ -62,6 +63,12 @@ export class ProductsService {
 
     return this.http
       .get<ApiResponse<Paginated<Product>>>(`${environment.apiUrl}/api/products/filter`, { params })
+      .pipe(map((response) => response.data));
+  }
+
+  getById(id: number): Observable<ProductDetail> {
+    return this.http
+      .get<ApiResponse<ProductDetail>>(`${environment.apiUrl}/api/products/${id}`)
       .pipe(map((response) => response.data));
   }
 }

@@ -1,0 +1,71 @@
+<div class="container product-page">
+  <a routerLink="/shop" class="back"><i class="bi bi-arrow-left"></i> Back to shop</a>
+
+  @if (product(); as item) {
+    <div class="product">
+      <div class="gallery">
+        <div class="gallery__main">
+          <img [ngSrc]="images()[selectedImage()]" [alt]="item.name" fill priority />
+        </div>
+
+        <div class="gallery__thumbs">
+          @for (url of images(); track url; let i = $index) {
+            <button
+              type="button"
+              class="thumb"
+              [class.thumb--active]="i === selectedImage()"
+              (click)="selectedImage.set(i)"
+            >
+              <img [ngSrc]="url" [alt]="item.name" fill />
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="info">
+        <p class="info__meta">
+          <span class="info__category">{{ item.category.name }}</span> • {{ item.brand }}
+        </p>
+
+        <h1>{{ item.name }}</h1>
+
+        <div class="info__rating">
+          @for (star of stars; track star) {
+            <span class="star" [class.star--filled]="star <= filledStars()">★</span>
+          }
+          <span class="info__rating-number">{{ item.rating | number: '1.1-1' }}</span>
+        </div>
+
+        <p class="info__price">USD {{ item.price | number: '1.0-0' }}</p>
+
+        <p class="info__stock" [class.info__stock--out]="item.stock === 0">
+          {{ item.stock > 0 ? 'In stock (' + item.stock + ')' : 'Out of stock' }}
+        </p>
+
+        <p class="info__description">{{ item.description }}</p>
+
+        <button type="button" class="btn-primary" [disabled]="item.stock === 0">
+          <i class="bi bi-cart"></i> Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <section class="specs">
+      <h2>Specifications</h2>
+
+      @for (spec of specs(); track spec[0]) {
+        <div class="specs__row">
+          <span class="specs__key">{{ spec[0] }}</span>
+          <span class="specs__value">{{ spec[1] }}</span>
+        </div>
+      }
+    </section>
+  } @else if (loading()) {
+    <div class="product">
+      <div class="skeleton skeleton--image"></div>
+      <div class="skeleton skeleton--info"></div>
+    </div>
+  } @else {
+    <p class="empty">Product not found.</p>
+  }
+</div>
