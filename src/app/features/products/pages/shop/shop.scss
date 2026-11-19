@@ -104,3 +104,26 @@
   border-color: $color-primary;
   outline: none;
 }
+
+
+.shop-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shop-toolbar__sort {
+  height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid $color-border;
+  border-radius: 0.75rem;
+  background-color: $color-surface;
+  color: $color-dark;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.shop-toolbar__sort:focus {
+  border-color: $color-primary;
+  outline: none;
+}

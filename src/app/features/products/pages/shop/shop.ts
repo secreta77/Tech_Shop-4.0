@@ -10,6 +10,15 @@ import { ProductQuery } from '../../models/product-query.model';
 import { ShopFilters } from '../../components/shop-filters/shop-filters';
 
 
+const SORT_OPTIONS = [
+  { value: 'rating', label: 'Top Rated', sortBy: 'rating', sortDescending: true },
+  { value: 'newest', label: 'Newest', sortBy: 'createdAt', sortDescending: true },
+  { value: 'price-asc', label: 'Price: Low to High', sortBy: 'price', sortDescending: false },
+  { value: 'price-desc', label: 'Price: High to Low', sortBy: 'price', sortDescending: true },
+  { value: 'name', label: 'Name: A to Z', sortBy: 'name', sortDescending: false },
+];
+
+
 @Component({
   selector: 'app-shop',
   imports: [ProductCard, Pagination,ShopFilters],
@@ -40,12 +49,21 @@ export class Shop {
   protected readonly brand  = computed(()=>this.params().get("brand") ?? '')
   protected readonly inStock = computed(()=>this.params().get("inStock")==="true")
   protected readonly search = computed(()=>this.params().get("search")?? "")
+  protected readonly sortOptions = SORT_OPTIONS
+  protected readonly sort = computed(()=>this.params().get("sort") ?? "rating")
+  
+
+
+
+
+  private readonly sortOption = computed(()=> SORT_OPTIONS.find((option)=>option.value === this.sort()) ?? SORT_OPTIONS[0])
+
 
   private readonly query = computed<ProductQuery>(() => ({
     take: this.pageSize(),
     page: this.page(),
-    sortBy: 'rating',
-    sortDescending: true,
+    sortBy: this.sortOption().sortBy,
+    sortDescending: this.sortOption().sortDescending,
     search: this.search() || undefined,
     brand: this.brand() || undefined,
     inStock: this.inStock(),
@@ -88,6 +106,10 @@ export class Shop {
     this.searchInput$.next((event.target as HTMLInputElement).value)
   }
 
+  protected onSort(event:Event):void{
+    this.filterChange({sort:(event.target as HTMLInputElement).value})
+  }
+  
 
     protected clearFilters(): void {
       this.updateParams({
@@ -98,6 +120,7 @@ export class Shop {
         brand: null,
         inStock: null,
         search: null,
+        sort: null,
         page: 1,
       });
     }
