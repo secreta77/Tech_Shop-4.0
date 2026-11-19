@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { Pagination } from '../../../../shared/components/pagination/pagination';
 import { CategoriesService } from '../../../categories/data-access/categories.service';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from '../../data-access/products.service';
 import { ProductQuery } from '../../models/product-query.model';
 import { ShopFilters } from '../../components/shop-filters/shop-filters';
+
 
 @Component({
   selector: 'app-shop',
@@ -38,13 +39,14 @@ export class Shop {
   protected readonly maxPrice = computed(()=>this.numberParam("maxPrice"))
   protected readonly brand  = computed(()=>this.params().get("brand") ?? '')
   protected readonly inStock = computed(()=>this.params().get("inStock")==="true")
+  protected readonly search = computed(()=>this.params().get("search")?? "")
 
   private readonly query = computed<ProductQuery>(() => ({
     take: this.pageSize(),
     page: this.page(),
     sortBy: 'rating',
     sortDescending: true,
-    search: this.params().get('search') ?? undefined,
+    search: this.search() || undefined,
     brand: this.brand() || undefined,
     inStock: this.inStock(),
     categoryId: this.categoryId(),
@@ -57,6 +59,14 @@ export class Shop {
     toObservable(this.query).pipe(switchMap((query) => this.productsService.getFiltered(query))),
     { initialValue: null },
   );
+
+  private readonly searchInput$ = new Subject<string>();
+
+  constructor() {
+    this.searchInput$
+      .pipe(debounceTime(400), distinctUntilChanged(), takeUntilDestroyed())
+      .subscribe((term) => this.filterChange({ search: term.trim() || null }));
+  }
 
   protected readonly products = computed(() => this.result()?.items ?? []);
   protected readonly totalPages = computed(() => this.result()?.totalPages ?? 1);
@@ -73,6 +83,11 @@ export class Shop {
   protected filterChange(changes: Params): void {
     this.updateParams({ ...changes, page: 1 });
   }
+
+  protected onSearch(event:Event):void{
+    this.searchInput$.next((event.target as HTMLInputElement).value)
+  }
+
 
     protected clearFilters(): void {
       this.updateParams({

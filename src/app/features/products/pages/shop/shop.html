@@ -24,7 +24,19 @@
 />
 
   <div class="shop-results">
-    <p class="shop__count">{{ totalCount() }} products</p>
+    <div class="shop-toolbar">
+      <div class="shop-toolbar__search">
+        <i class="bi bi-search"></i>
+        <input
+          type="search"
+          placeholder="Search products..."
+          [value]="search()"
+          (input)="onSearch($event)"
+        />
+      </div>
+
+      <p class="shop__count">{{ totalCount() }} products</p>
+    </div>
 
     <div class="shop__grid">
       @for (product of products(); track product.id; let isFirst = $first) {
