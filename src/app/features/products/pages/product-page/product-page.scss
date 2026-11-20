@@ -206,3 +206,32 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+.tabs {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    border-bottom: 1px solid $color-border;
+  }
+  
+  .tabs__tab {
+    padding: 1rem 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font: inherit;
+    font-weight: 600;
+    color: $color-text-muted;
+    cursor: pointer;
+  }
+  
+  .tabs__tab--active {
+    color: $color-primary;
+    border-bottom-color: $color-primary;
+  }
+  
+  .tab-content {
+    padding: 2rem 0;
+  }

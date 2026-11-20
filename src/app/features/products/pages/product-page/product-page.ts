@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { ReviewsSection } from '../../../reviews/pages/reviews-section/reviews-section';
 import { ProductsService } from '../../data-access/products.service';
+import { ReviewsService } from '../../../reviews/data-access/reviews.service';
 
 @Component({
   selector: 'app-product-page',
@@ -16,10 +17,26 @@ import { ProductsService } from '../../data-access/products.service';
 export class ProductPage {
   private readonly route = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
+  private readonly reviewService = inject(ReviewsService)
+
+
 
   protected readonly loading = signal(true);
   protected readonly selectedImage = signal(0);
   protected readonly stars = [1, 2, 3, 4, 5];
+  protected readonly activetab = signal<'description' | 'specifications' | 'reviews'>('description')
+
+  protected readonly reviewsCount = toSignal(
+    this.route.paramMap.pipe(
+      map((params)=>Number(params.get('id'))),
+      switchMap((id)=>this.reviewService.getByProduct(id,1,1).pipe(
+        map((page)=>page.totalCount),
+        catchError(()=>of(0))
+      ))
+    )
+  )
+
+
 
   protected readonly product = toSignal(
     this.route.paramMap.pipe(
@@ -27,6 +44,7 @@ export class ProductPage {
       tap(() => {
         this.loading.set(true);
         this.selectedImage.set(0);
+        this.activetab.set('description');
       }),
       switchMap((id) => this.productsService.getById(id).pipe(catchError(() => of(null)))),
       tap(() => this.loading.set(false)),

@@ -50,18 +50,54 @@
       </div>
     </div>
 
-    <section class="specs">
-      <h2>Specifications</h2>
-
-      @for (spec of specs(); track spec[0]) {
-        <div class="specs__row">
-          <span class="specs__key">{{ spec[0] }}</span>
-          <span class="specs__value">{{ spec[1] }}</span>
-        </div>
-      }
-    </section>
-
-    <app-reviews-section [productId]="item.id" />
+    <div class="tabs">
+        <button
+          type="button"
+          class="tabs__tab"
+          [class.tabs__tab--active]="activetab() === 'description'"
+          (click)="activetab.set('description')"
+        >
+          Description
+        </button>
+  
+        <button
+          type="button"
+          class="tabs__tab"
+          [class.tabs__tab--active]="activetab() === 'specifications'"
+          (click)="activetab.set('specifications')"
+        >
+          Specifications
+        </button>
+  
+        <button
+          type="button"
+          class="tabs__tab"
+          [class.tabs__tab--active]="activetab() === 'reviews'"
+          (click)="activetab.set('reviews')"
+        >
+          Reviews ({{ reviewsCount() }})
+        </button>
+      </div>
+  
+      <div class="tab-content">
+        @switch (activetab()) {
+          @case ('description') {
+            <h2>Product Description</h2>
+            <p>{{ item.description }}</p>
+          }
+          @case ('specifications') {
+            @for (spec of specs(); track spec[0]) {
+              <div class="specs__row">
+                <span class="specs__key">{{ spec[0] }}</span>
+                <span class="specs__value">{{ spec[1] }}</span>
+              </div>
+            }
+          }
+          @case ('reviews') {
+            <app-reviews-section [productId]="item.id" />
+          }
+        }
+      </div>
   } @else if (loading()) {
     <div class="product">
       <div class="skeleton skeleton--image"></div>
