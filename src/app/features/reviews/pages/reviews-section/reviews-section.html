@@ -1,5 +1,7 @@
+<app-reviews-summary [reviews]="reviews()" />
+
 <div class="reviews">
-    @for (review of reviews(); track review.id) {
-      <app-review-card [review]="review" />
-    }
-  </div>
+  @for (review of reviews(); track review.id) {
+    <app-review-card [review]="review" />
+  }
+</div>

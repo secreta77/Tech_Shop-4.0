@@ -1,0 +1,27 @@
+<div class="summary">
+    <div class="summary__average">
+      <p class="summary__number">{{ average() | number: '1.1-1' }}</p>
+  
+      <div class="summary__stars">
+        @for (star of stars; track star) {
+          <span class="star" [class.star--filled]="star <= filledStars()">★</span>
+        }
+      </div>
+  
+      <p class="summary__total">Based on {{ total() }} reviews</p>
+    </div>
+  
+    <div class="summary__bars">
+      @for (row of rows(); track row.star) {
+        <div class="bar-row">
+          <span class="bar-row__label">{{ row.star }} ★</span>
+  
+          <div class="bar-row__track">
+            <div class="bar-row__fill" [style.width.%]="row.percent"></div>
+          </div>
+  
+          <span class="bar-row__count">{{ row.count }}</span>
+        </div>
+      }
+    </div>
+  </div>

@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap } from 'rxjs';
 import { ReviewCard } from '../../components/review-card/review-card';
+import { ReviewsSummary } from '../../components/reviews-summary/reviews-summary';
 import { ReviewsService } from '../../data-access/reviews.service';
 
 @Component({
   selector: 'app-reviews-section',
-  imports: [ReviewCard],
+  imports: [ReviewCard, ReviewsSummary],
   templateUrl: './reviews-section.html',
   styleUrl: './reviews-section.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
