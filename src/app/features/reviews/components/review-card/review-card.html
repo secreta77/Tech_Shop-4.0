@@ -1,4 +1,4 @@
-<article class="review">
+<article class="review" [class.review--mine]="isMine()">
     @if (review().user.details.pictureUrl) {
       <img class="review__avatar" [src]="review().user.details.pictureUrl" [alt]="fullName()" />
     } @else {
@@ -6,7 +6,12 @@
     }
   
     <div class="review__info">
-      <p class="review__name">{{ fullName() }}</p>
+      <p class="review__name">
+      {{ fullName() }}
+      @if (isMine()) {
+        <span class="review__badge">You</span>
+      }
+    </p>
       <p class="review__date">{{ review().createdAt | date: 'longDate' }}</p>
     </div>
   

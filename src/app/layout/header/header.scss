@@ -99,3 +99,57 @@ button.sign-in {
   font-size: inherit;
   cursor: pointer;
 }
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: $color-text;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background-color: $color-bg;
+  color: $color-primary;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: $color-primary;
+  color: $color-surface;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.logout {
+  padding: 0.5rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: 999px;
+  background: none;
+  color: $color-text;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout:hover {
+  border-color: $color-primary;
+  color: $color-primary;
+}

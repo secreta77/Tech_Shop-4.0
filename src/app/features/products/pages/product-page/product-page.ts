@@ -2,7 +2,7 @@ import { DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
+import { catchError, combineLatest, filter, map, of, switchMap, tap } from 'rxjs';
 import { ReviewsSection } from '../../../reviews/pages/reviews-section/reviews-section';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from '../../data-access/products.service';
@@ -27,15 +27,22 @@ export class ProductPage {
   protected readonly stars = [1, 2, 3, 4, 5];
   protected readonly activetab = signal<'description' | 'specifications' | 'reviews'>('description')
 
+  protected readonly countKey = signal(0);
+
   protected readonly reviewsCount = toSignal(
-    this.route.paramMap.pipe(
-      map((params)=>Number(params.get('id'))),
-      switchMap((id)=>this.reviewService.getByProduct(id,1,1).pipe(
-        map((page)=>page.totalCount),
-        catchError(()=>of(0))
-      ))
-    )
-  )
+    combineLatest([
+      this.route.paramMap.pipe(map((params) => Number(params.get('id')))),
+      toObservable(this.countKey),
+    ]).pipe(
+      switchMap(([id]) =>
+        this.reviewService.getByProduct(id, 1, 1).pipe(
+          map((page) => page.totalCount),
+          catchError(() => of(0)),
+        ),
+      ),
+    ),
+    { initialValue: 0 },
+  );
 
 
 

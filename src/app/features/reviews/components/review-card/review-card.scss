@@ -56,3 +56,18 @@
 .star--filled {
   color: #f5b301;
 }
+
+.review--mine {
+  background: $color-primary-light;
+  border-color: $color-primary;
+}
+
+.review__badge {
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: $radius-sm;
+  background: $color-primary;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

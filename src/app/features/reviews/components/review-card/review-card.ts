@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ReviewCard {
   review = input.required<Review>()
+  isMine = input(false)
 
   fullName = computed(()=>`${this.review().user.firstName} ${this.review().user.lastName}`)
 

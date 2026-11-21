@@ -99,7 +99,7 @@
           }
           @case ('reviews') {
             <div class="tab-panel">
-              <app-reviews-section [productId]="item.id" />
+              <app-reviews-section [productId]="item.id" (changed)="countKey.update((key) => key + 1)" />
             </div>
           }
         }

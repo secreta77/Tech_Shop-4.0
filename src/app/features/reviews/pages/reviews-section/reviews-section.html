@@ -1,7 +1,7 @@
 @if (isLoggedIn()) {
   <div class="actions">
     <button type="button" class="write-btn" (click)="formOpen.set(true)">
-      <i class="bi bi-pencil-square"></i> Write a Review
+      <i class="bi bi-pencil-square"></i> {{ myReview() ? 'Edit Your Review' : 'Write a Review' }}
     </button>
   </div>
 } @else {
@@ -13,13 +13,15 @@
 <app-reviews-summary [reviews]="reviews()" />
 
 <div class="reviews">
-  @for (review of reviews(); track review.id) {
-    <app-review-card [review]="review" />
+  @for (review of orderedReviews(); track review.id) {
+    <app-review-card [review]="review" [isMine]="review.id === myReview()?.id" />
   }
 </div>
 
 @if (formOpen()) {
   <app-review-form
+    [isEdit]="!!myReview()"
+    [initialRating]="myReview()?.rating ?? 0"
     [submitting]="saving()"
     (submitted)="onSubmit($event)"
     (cancelled)="formOpen.set(false)"
