@@ -1,3 +1,15 @@
+@if (isLoggedIn()) {
+  <div class="actions">
+    <button type="button" class="write-btn" (click)="formOpen.set(true)">
+      <i class="bi bi-pencil-square"></i> Write a Review
+    </button>
+  </div>
+} @else {
+  <div class="login-note">
+    Please <a routerLink="/login">login</a> to write a review.
+  </div>
+}
+
 <app-reviews-summary [reviews]="reviews()" />
 
 <div class="reviews">
@@ -5,3 +17,11 @@
     <app-review-card [review]="review" />
   }
 </div>
+
+@if (formOpen()) {
+  <app-review-form
+    [submitting]="saving()"
+    (submitted)="onSubmit($event)"
+    (cancelled)="formOpen.set(false)"
+  />
+}
