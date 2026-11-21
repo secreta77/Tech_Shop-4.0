@@ -2,6 +2,8 @@
     @for(toast of toastService.toast(); track toast.id){
         <div
         class="toast"
+        animate.enter="toast--enter"
+        animate.leave="toast--leave"
         [class.toast--success]="toast.type === 'success'"
         [class.toast--error]="toast.type === 'error'"
       >

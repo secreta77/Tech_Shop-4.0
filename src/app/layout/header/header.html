@@ -31,12 +31,25 @@
         <button type="button" class="icon-btn" aria-label="Favorites">
           <i class="bi bi-heart"></i>
         </button>
-        <button type="button" class="icon-btn" aria-label="Cart">
+        <button type="button" class="icon-btn" aria-label="Cart" (click)="cartOpen.set(true)">
           <i class="bi bi-cart"></i>
+          @if (cartCount() > 0) {
+            <span class="icon-btn__badge">{{ cartCount() }}</span>
+          }
         </button>
         <span class="avatar">{{ initials() }}</span>
         <button type="button" class="logout" (click)="logout()">Logout</button>
       </div>
+
+      <app-cart-drawer
+      [open]="cartOpen()"
+      [items]="cartItems()"
+      [count]="cartCount()"
+      [total]="cartTotal()"
+      (closed)="cartOpen.set(false)"
+      (quantityChange)="changeQuantity($event)"
+      (removed)="removeFromCart($event)"
+    />
     } @else {
       <a routerLink="/login" class="sign-in">Sign In</a>
     }

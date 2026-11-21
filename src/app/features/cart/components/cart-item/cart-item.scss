@@ -1,0 +1,93 @@
+@use '../../../../../styles/variables' as *;
+
+.item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid $color-border;
+}
+
+.item__image {
+  position: relative;
+  flex: 0 0 4.5rem;
+  height: 4.5rem;
+  overflow: hidden;
+  border-radius: $radius-sm;
+  background: $color-bg;
+}
+
+.item__image img {
+  object-fit: cover;
+}
+
+.item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item__name {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $color-dark;
+}
+
+.item__price {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: $color-text-muted;
+}
+
+.item__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+}
+
+.item__qty button {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.item__qty button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.item__qty span {
+  min-width: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.item__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.item__remove {
+  border: none;
+  background: none;
+  color: $color-text-muted;
+  cursor: pointer;
+}
+
+.item__remove:hover {
+  color: $color-error;
+}
+
+.item__total {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: $color-dark;
+}

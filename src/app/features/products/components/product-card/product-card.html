@@ -25,7 +25,12 @@
 
     <p class="card__price">USD {{ product().price | number: '1.0-0' }}</p>
 
-    <button type="button" class="card__button" [disabled]="soldOut()">
+    <button
+      type="button"
+      class="card__button"
+      [disabled]="soldOut()"
+      (click)="addToCart.emit(product().id)"
+    >
       @if (soldOut()) {
         Out of Stock
       } @else {

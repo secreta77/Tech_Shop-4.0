@@ -1,5 +1,5 @@
 import { DecimalPipe, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../models/product.model';
 
@@ -13,7 +13,7 @@ import { Product } from '../../models/product.model';
 export class ProductCard {
   readonly product = input.required<Product>();
   readonly priority = input(false);
-
+  readonly addToCart = output<number>();
   readonly stars = [1, 2, 3, 4, 5];
   readonly filledStars = computed(() => Math.round(this.product().rating));
   readonly soldOut = computed(() => this.product().stock === 0);

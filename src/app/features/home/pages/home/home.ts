@@ -6,6 +6,7 @@ import { ProductCard } from '../../../products/components/product-card/product-c
 import { Benefits } from '../../components/benefits/benefits';
 import { HomeService } from '../../data-access/home.service';
 import { Hero } from '../../components/hero/hero';
+import { CartService } from '../../../cart/data-access/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,13 @@ import { Hero } from '../../components/hero/hero';
 })
 export class Home {
   private readonly homeService = inject(HomeService);
+  private readonly cartService = inject(CartService);
 
   readonly featuredCategories = toSignal(this.homeService.featuredCategories$, { initialValue: [] });
   readonly products = toSignal(this.homeService.featuredProducts$, { initialValue: [] });
   readonly benefits = this.homeService.benefits;
+
+  protected addToCart(productId: number): void {
+    this.cartService.addToCart(productId);
+  }
 }

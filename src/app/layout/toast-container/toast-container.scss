@@ -28,13 +28,13 @@
 
 .toast--success {
   border-color: $color-primary;
-  background-color: $color-primary-light;
+  background-color: #f4fbf7;
   color: $color-dark;
 }
 
 .toast--error {
   border-color: $color-error;
-  background-color: $color-error-light;
+  background-color: #fff7f7;
   color: $color-dark;
 }
 
@@ -45,4 +45,34 @@
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
+}
+
+.toast--enter {
+  animation: toast-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toast--leave {
+  animation: toast-out 0.3s ease-in forwards;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-1.5rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1rem) scale(0.95);
+  }
 }

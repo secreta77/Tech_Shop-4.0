@@ -7,6 +7,7 @@ import { ReviewsSection } from '../../../reviews/pages/reviews-section/reviews-s
 import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from '../../data-access/products.service';
 import { ReviewsService } from '../../../reviews/data-access/reviews.service';
+import { CartService } from '../../../cart/data-access/cart.service';
 
 @Component({
   selector: 'app-product-page',
@@ -18,6 +19,7 @@ import { ReviewsService } from '../../../reviews/data-access/reviews.service';
 export class ProductPage {
   private readonly route = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
   private readonly reviewService = inject(ReviewsService)
 
 
@@ -25,6 +27,7 @@ export class ProductPage {
   protected readonly loading = signal(true);
   protected readonly selectedImage = signal(0);
   protected readonly stars = [1, 2, 3, 4, 5];
+  protected readonly quantity = signal(1);
   protected readonly activetab = signal<'description' | 'specifications' | 'reviews'>('description')
 
   protected readonly countKey = signal(0);
@@ -52,6 +55,7 @@ export class ProductPage {
       tap(() => {
         this.loading.set(true);
         this.selectedImage.set(0);
+        this.quantity.set(1);
         this.activetab.set('description');
       }),
       switchMap((id) => this.productsService.getById(id).pipe(catchError(() => of(null)))),
@@ -83,4 +87,20 @@ protected readonly related = toSignal(toObservable(this.product).pipe(
 )
 
 
+
+  protected addToCart(productId: number): void {
+    this.cartService.addToCart(productId);
+  }
+
+  protected decreaseQuantity(): void {
+    this.quantity.update((value) => value - 1);
+  }
+
+  protected increaseQuantity(stock: number): void {
+    this.quantity.update((value) => Math.min(value + 1, stock));
+  }
+
+  protected addCurrentToCart(productId: number): void {
+    this.cartService.addToCart(productId, this.quantity());
+  }
 }
