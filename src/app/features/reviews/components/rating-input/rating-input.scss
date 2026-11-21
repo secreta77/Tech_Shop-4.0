@@ -1,0 +1,21 @@
+@use '../../../../../styles/variables' as *;
+
+.rating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.rating__star {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: $color-border;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.rating__star--filled {
+  color: #f5b301;
+}

@@ -21,13 +21,11 @@ export class ReviewsService {
   }
 
 
-create(productId:number,rate:number):Observable<unknown>{
-return this.http.post(`${environment.apiUrl}/api/reviews`,{productId,rate})
-}
+  create(productId: number, rate: number): Observable<unknown> {
+    return this.http.post(`${environment.apiUrl}/api/reviews`, { productId, rate });
+  }
 
-
-update(reviewid:number,rate:number):Observable<unknown>{
-  return this.http.put(`${environment.apiUrl}/api/reviwes`,{reviewid,rate})
-
-}
+  update(reviewId: number, rate: number): Observable<unknown> {
+    return this.http.put(`${environment.apiUrl}/api/reviews`, { reviewId, rate });
+  }
 }

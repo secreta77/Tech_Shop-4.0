@@ -1,0 +1,97 @@
+@use '../../../../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  width: 100%;
+  max-width: 26rem;
+  background: $color-surface;
+  border-radius: $radius-md;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.25);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $color-border;
+}
+
+.modal__header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $color-dark;
+}
+
+.modal__close {
+  border: none;
+  background: none;
+  color: $color-text-muted;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal__body {
+  padding: 1.5rem;
+}
+
+.modal__label {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: $color-text;
+}
+
+.modal__required {
+  color: $color-error;
+}
+
+.modal__error {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: $color-error;
+}
+
+.modal__footer {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.modal__cancel,
+.modal__submit {
+  padding: 0.5rem 1rem;
+  border-radius: $radius-sm;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal__cancel {
+  border: 1px solid $color-border;
+  background: $color-surface;
+  color: $color-text;
+}
+
+.modal__submit {
+  border: 1px solid $color-primary;
+  background: $color-primary;
+  color: #ffffff;
+}
+
+.modal__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

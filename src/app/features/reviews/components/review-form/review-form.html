@@ -1,0 +1,27 @@
+<div class="overlay" (click)="cancelled.emit()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal__header">
+        <h3>{{ isEdit() ? 'Edit Your Review' : 'Write a Review' }}</h3>
+        <button type="button" class="modal__close" (click)="cancelled.emit()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+  
+      <div class="modal__body">
+        <p class="modal__label"><span class="modal__required">*</span> Rating</p>
+  
+        <app-rating-input [value]="rating()" (rated)="onRated($event)" />
+  
+        @if (showError()) {
+          <p class="modal__error">Please select a rating.</p>
+        }
+      </div>
+  
+      <div class="modal__footer">
+        <button type="button" class="modal__cancel" (click)="cancelled.emit()">Cancel</button>
+        <button type="button" class="modal__submit" [disabled]="submitting()" (click)="submit()">
+          {{ submitting() ? 'Saving...' : isEdit() ? 'Update Review' : 'Submit Review' }}
+        </button>
+      </div>
+    </div>
+  </div>
