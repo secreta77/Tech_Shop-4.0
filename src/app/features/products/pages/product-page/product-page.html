@@ -82,22 +82,40 @@
       <div class="tab-content">
         @switch (activetab()) {
           @case ('description') {
-            <h2>Product Description</h2>
-            <p>{{ item.description }}</p>
+            <div class="tab-panel">
+              <h2>Product Description</h2>
+              <p>{{ item.description }}</p>
+            </div>
           }
           @case ('specifications') {
-            @for (spec of specs(); track spec[0]) {
-              <div class="specs__row">
-                <span class="specs__key">{{ spec[0] }}</span>
-                <span class="specs__value">{{ spec[1] }}</span>
-              </div>
-            }
+            <div class="tab-panel">
+              @for (spec of specs(); track spec[0]) {
+                <div class="specs__row">
+                  <span class="specs__key">{{ spec[0] }}</span>
+                  <span class="specs__value">{{ spec[1] }}</span>
+                </div>
+              }
+            </div>
           }
           @case ('reviews') {
-            <app-reviews-section [productId]="item.id" />
+            <div class="tab-panel">
+              <app-reviews-section [productId]="item.id" />
+            </div>
           }
         }
       </div>
+
+    @if (related().length) {
+      <section class="related">
+        <h2>Related Products</h2>
+
+        <div class="related__grid">
+          @for (relatedProduct of related(); track relatedProduct.id) {
+            <app-product-card [product]="relatedProduct" />
+          }
+        </div>
+      </section>
+    }
   } @else if (loading()) {
     <div class="product">
       <div class="skeleton skeleton--image"></div>

@@ -1,15 +1,16 @@
 import { DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { ReviewsSection } from '../../../reviews/pages/reviews-section/reviews-section';
+import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from '../../data-access/products.service';
 import { ReviewsService } from '../../../reviews/data-access/reviews.service';
 
 @Component({
   selector: 'app-product-page',
-  imports: [DecimalPipe, NgOptimizedImage, RouterLink, ReviewsSection],
+  imports: [DecimalPipe, NgOptimizedImage, RouterLink, ReviewsSection, ProductCard],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,4 +60,20 @@ export class ProductPage {
 
   protected readonly filledStars = computed(() => Math.round(this.product()?.rating ?? 0));
   protected readonly specs = computed(() => Object.entries(this.product()?.specifications ?? {}));
+
+
+
+protected readonly related = toSignal(toObservable(this.product).pipe(
+  filter((product)=>product!==null),switchMap((product)=>this.productsService.getFiltered({take:5,page:1,categoryId:product.category.id}).pipe(
+    map((result)=>result.items.filter((item)=>item.id !==product.id).slice(0,4)),
+    catchError(()=>of([]))
+  ))
+
+  )
+
+
+  ,{initialValue:[]}
+)
+
+
 }
