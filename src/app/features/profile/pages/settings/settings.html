@@ -1,0 +1,110 @@
+<h1 class="settings__title">Account Settings</h1>
+<p class="settings__subtitle">Manage your security and account preferences</p>
+
+<section class="card">
+  <div class="card__head">
+    <i class="bi bi-lock"></i>
+    <h2>Change Password</h2>
+  </div>
+
+  <form [formRoot]="passwordForm" class="card__body">
+    <div class="field">
+      <label for="currentPassword" class="label"><span class="label__required">*</span> Current Password</label>
+      <div class="input">
+        <i class="bi bi-lock"></i>
+        <input
+          id="currentPassword"
+          [type]="visible().current ? 'text' : 'password'"
+          placeholder="Enter your current password"
+          [formField]="passwordForm.currentPassword"
+        />
+        <button type="button" class="input__eye" aria-label="Show password" (click)="toggle('current')">
+          <i class="bi" [class.bi-eye]="!visible().current" [class.bi-eye-slash]="visible().current"></i>
+        </button>
+      </div>
+      @if (passwordForm.currentPassword().touched()) {
+        @for (error of passwordForm.currentPassword().errors(); track error.kind) {
+          <p class="error">{{ error.message }}</p>
+        }
+      }
+    </div>
+
+    <div class="settings__row">
+      <div class="field">
+        <label for="newPassword" class="label"><span class="label__required">*</span> New Password</label>
+        <div class="input">
+          <i class="bi bi-lock"></i>
+          <input
+            id="newPassword"
+            [type]="visible().next ? 'text' : 'password'"
+            placeholder="Enter your new password"
+            [formField]="passwordForm.newPassword"
+          />
+          <button type="button" class="input__eye" aria-label="Show password" (click)="toggle('next')">
+            <i class="bi" [class.bi-eye]="!visible().next" [class.bi-eye-slash]="visible().next"></i>
+          </button>
+        </div>
+        @if (passwordForm.newPassword().touched()) {
+          @for (error of passwordForm.newPassword().errors(); track error.kind) {
+            <p class="error">{{ error.message }}</p>
+          }
+        }
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword" class="label"><span class="label__required">*</span> Confirm New Password</label>
+        <div class="input">
+          <i class="bi bi-lock"></i>
+          <input
+            id="confirmPassword"
+            [type]="visible().confirm ? 'text' : 'password'"
+            placeholder="Confirm your new password"
+            [formField]="passwordForm.confirmPassword"
+          />
+          <button type="button" class="input__eye" aria-label="Show password" (click)="toggle('confirm')">
+            <i class="bi" [class.bi-eye]="!visible().confirm" [class.bi-eye-slash]="visible().confirm"></i>
+          </button>
+        </div>
+        @if (passwordForm.confirmPassword().touched()) {
+          @for (error of passwordForm.confirmPassword().errors(); track error.kind) {
+            <p class="error">{{ error.message }}</p>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="settings__actions">
+      <button type="submit" class="settings__update" [disabled]="passwordForm().submitting()">
+        <i class="bi bi-check-lg"></i>
+        {{ passwordForm().submitting() ? 'Updating...' : 'Update Password' }}
+      </button>
+    </div>
+  </form>
+</section>
+
+<section class="card card--danger">
+  <div class="card__head card__head--danger">
+    <i class="bi bi-exclamation-triangle"></i>
+    <h2>Danger Zone</h2>
+  </div>
+
+  <div class="card__body">
+    <div class="warning">
+      <i class="bi bi-exclamation-circle"></i>
+      <div>
+        <p class="warning__title">Delete Account</p>
+        <p class="warning__text">Once you delete your account, there is no going back. Please be certain.</p>
+      </div>
+    </div>
+
+    <div class="delete">
+      <div>
+        <p class="delete__title">Delete your account</p>
+        <p class="delete__text">This will permanently delete your account, including all your data, orders, and preferences.</p>
+      </div>
+      <button type="button" class="delete__button" [disabled]="deleting()" (click)="deleteAccount()">
+        <i class="bi bi-trash"></i> {{ deleting() ? 'Deleting...' : 'Delete Account' }}
+      </button>
+    </div>
+  </div>
+</section>

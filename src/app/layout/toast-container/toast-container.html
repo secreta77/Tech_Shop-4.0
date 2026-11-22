@@ -6,9 +6,20 @@
         animate.leave="toast--leave"
         [class.toast--success]="toast.type === 'success'"
         [class.toast--error]="toast.type === 'error'"
+        [class.toast--confirm]="toast.type === 'confirm'"
       >
         <span>{{ toast.message }}</span>
-        <button type="button" class="toast__close" aria-label="Close" (click)="toastService.remove(toast.id)">×</button>
+
+        @if (toast.type === 'confirm') {
+          <div class="toast__actions">
+            <button type="button" class="toast__btn" (click)="toastService.answer(toast.id, false)">Cancel</button>
+            <button type="button" class="toast__btn toast__btn--danger" (click)="toastService.answer(toast.id, true)">
+              {{ toast.confirmLabel }}
+            </button>
+          </div>
+        } @else {
+          <button type="button" class="toast__close" aria-label="Close" (click)="toastService.remove(toast.id)">×</button>
+        }
       </div>
     }
 </div>

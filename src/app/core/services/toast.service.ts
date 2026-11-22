@@ -2,8 +2,10 @@ import { Injectable, signal } from '@angular/core';
 
 export interface Toast{
   id:number
-  type:'success' | 'error'
+  type:'success' | 'error' | 'confirm'
   message:string
+  confirmLabel?:string
+  resolve?:(result:boolean)=>void
 }
 
 @Injectable({
@@ -23,6 +25,18 @@ export class ToastService {
     this.show('error',message)
   }
 
+
+  confirm(message:string,confirmLabel = 'Confirm'):Promise<boolean>{
+    return new Promise((resolve)=>{
+      const id = this.nextId++
+      this._toasts.update((list)=>[...list,{id,type:'confirm',message,confirmLabel,resolve}])
+    })
+  }
+
+  answer(id:number,result:boolean):void{
+    this._toasts().find((t)=>t.id === id)?.resolve?.(result)
+    this.remove(id)
+  }
 
   remove(id:number):void{
     this._toasts.update((list)=>list.filter((t)=>  t.id !==id))

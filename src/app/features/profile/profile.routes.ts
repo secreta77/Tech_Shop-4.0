@@ -17,6 +17,10 @@ export const PROFILE_ROUTES: Routes = [
         loadComponent: () =>
           import('../favorites/pages/favorites/favorites').then((m) => m.Favorites),
       },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/settings/settings').then((m) => m.Settings),
+      },
     ],
   },
 ];

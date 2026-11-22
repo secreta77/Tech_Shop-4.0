@@ -76,3 +76,40 @@
     transform: translateY(-1rem) scale(0.95);
   }
 }
+
+
+.toast--confirm {
+  flex-direction: column;
+  align-items: stretch;
+  border-color: $color-error;
+  background-color: #fffafa;
+  color: $color-dark;
+}
+
+.toast__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.toast__btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-text;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toast__btn--danger {
+  border-color: #ef4444;
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.toast__btn--danger:hover {
+  background: $color-error;
+}
