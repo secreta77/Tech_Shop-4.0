@@ -136,6 +136,7 @@ button.sign-in {
   color: $color-surface;
   font-size: 0.875rem;
   font-weight: 600;
+  text-decoration: none;
 }
 
 .logout {
@@ -149,7 +150,7 @@ button.sign-in {
   font-weight: 500;
   cursor: pointer;
 }
-
+  
 .logout:hover {
   border-color: $color-primary;
   color: $color-primary;

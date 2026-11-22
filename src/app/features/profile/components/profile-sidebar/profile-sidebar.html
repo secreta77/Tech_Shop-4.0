@@ -1,0 +1,28 @@
+<aside class="sidebar">
+    <div class="sidebar__header">
+      <div class="sidebar__avatar">{{ initials() }}</div>
+      <p class="sidebar__name">{{ fullName() }}</p>
+      <p class="sidebar__email">{{ user()?.email }}</p>
+    </div>
+  
+    <nav class="sidebar__nav">
+      @for (link of links; track link.path) {
+        <a
+          class="sidebar__link"
+          [routerLink]="link.path"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+        >
+          <span class="sidebar__icon"><i class="bi" [class]="link.icon"></i></span>
+          {{ link.label }}
+        </a>
+      }
+  
+      <div class="sidebar__divider"></div>
+  
+      <button type="button" class="sidebar__link sidebar__link--logout" (click)="loggedOut.emit()">
+        <span class="sidebar__icon"><i class="bi bi-box-arrow-right"></i></span>
+        Logout
+      </button>
+    </nav>
+  </aside>

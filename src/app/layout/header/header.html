@@ -37,7 +37,7 @@
             <span class="icon-btn__badge">{{ cartCount() }}</span>
           }
         </button>
-        <span class="avatar">{{ initials() }}</span>
+        <a routerLink="/profile" class="avatar">{{ initials() }}</a>
         <button type="button" class="logout" (click)="logout()">Logout</button>
       </div>
 
