@@ -17,4 +17,6 @@ export class ProductCard {
   readonly stars = [1, 2, 3, 4, 5];
   readonly filledStars = computed(() => Math.round(this.product().rating));
   readonly soldOut = computed(() => this.product().stock === 0);
+  readonly favorite = input(false);
+  readonly favoriteToggle = output<number>();
 }

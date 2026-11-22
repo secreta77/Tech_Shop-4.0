@@ -6,6 +6,21 @@
     }
   </a>
 
+  <div class="card__actions">
+    <button
+      type="button"
+      class="card__action"
+      [class.card__action--active]="favorite()"
+      aria-label="Toggle favorite"
+      (click)="favoriteToggle.emit(product().id)"
+    >
+      <i class="bi" [class.bi-heart-fill]="favorite()" [class.bi-heart]="!favorite()"></i>
+    </button>
+    <a class="card__action" aria-label="View product" [routerLink]="['/products', product().id]">
+      <i class="bi bi-eye"></i>
+    </a>
+  </div>
+
   <div class="card__body">
     <p class="card__meta">
       <span class="card__category">{{ product().category.name }}</span>

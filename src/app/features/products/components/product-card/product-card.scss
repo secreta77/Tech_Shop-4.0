@@ -13,8 +13,9 @@
   border-radius: $radius-lg;
   background-color: $color-surface;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  border-color 0.2s,
+  box-shadow 0.2s;
+  position: relative;
 }
 
 .card:hover {
@@ -137,4 +138,50 @@
 
 .card__name a:hover {
   color: $color-primary;
+}
+
+
+.card__actions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card__action {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 50%;
+  background: $color-surface;
+  color: $color-text;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    color 0.2s;
+}
+
+.card:hover .card__action,
+.card__action:focus-visible,
+.card__action--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card__action:hover {
+  color: $color-primary;
+}
+
+.card__action--active {
+  color: $color-error;
 }
