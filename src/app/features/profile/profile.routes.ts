@@ -9,6 +9,11 @@ export const PROFILE_ROUTES: Routes = [
       import('./pages/profile-shell/profile-shell').then((m) => m.ProfileShell),
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./pages/my-profile/my-profile').then((m) => m.MyProfile),
+      },
+      {
         path: 'cart',
         loadComponent: () => import('../cart/pages/cart/cart').then((m) => m.Cart),
       },

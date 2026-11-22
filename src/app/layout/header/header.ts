@@ -56,4 +56,9 @@ protected readonly initials = computed(()=>{
   return user ? (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase() : ''
 }) 
 
+
+protected search(term: string): void {
+  this.router.navigate(['/shop'], { queryParams: { search: term.trim() || null, page: null } })
+}
+
 }

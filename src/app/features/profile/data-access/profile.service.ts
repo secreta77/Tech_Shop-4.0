@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { ChangePasswordRequest, UpdateProfileRequest, User } from '../models/user.model';
 import { environment } from '../../../../environments/environment';
@@ -16,12 +16,22 @@ export class ProfileService {
   private readonly authService = inject(AuthService)
 
 
-readonly currentUser = toSignal(toObservable(this.authService.isLoggedIn).pipe(
-  switchMap((loggedIn)=>loggedIn? this.getMe().pipe(catchError(()=>of(null))):of(null)
-  
-)
+  private readonly reloadKey = signal(0);
 
-)   ,{initialValue:null})
+  readonly currentUser = toSignal(
+    toObservable(
+      computed(() => ({ loggedIn: this.authService.isLoggedIn(), key: this.reloadKey() })),
+    ).pipe(
+      switchMap(({ loggedIn }) =>
+        loggedIn ? this.getMe().pipe(catchError(() => of(null))) : of(null),
+      ),
+    ),
+    { initialValue: null },
+  );
+
+  reload(): void {
+    this.reloadKey.update((key) => key + 1);
+  }
 
 getMe():Observable<User>{
   return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/api/users/me`).pipe(

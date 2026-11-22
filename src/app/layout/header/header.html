@@ -24,7 +24,14 @@
       <a routerLink="/shop" routerLinkActive="active">Shop</a>
     </nav>
 
-    <input type="search" class="search" placeholder="Search products..." />
+    <input
+      #searchInput
+      type="search"
+      class="search"
+      placeholder="Search products..."
+      (keyup.enter)="search(searchInput.value)"
+      (search)="search(searchInput.value)"
+    />
 
     @if (isLoggedIn()) {
       <div class="actions">
