@@ -53,6 +53,7 @@ export class FavoritesService {
           const request = wasFavorite ? this.remove(productId) : this.add(productId);
 
           return request.pipe(
+            map(() => !wasFavorite),
             catchError(() => {
               this.setLocal(productId, wasFavorite);
               return EMPTY;
@@ -61,7 +62,10 @@ export class FavoritesService {
         }),
         takeUntilDestroyed(),
       )
-      .subscribe(() => this.reload());
+      .subscribe((added) => {
+        this.toastService.success(added ? 'Added to favorites' : 'Removed from favorites');
+        this.reload();
+      });
   }
 
   reload(): void {

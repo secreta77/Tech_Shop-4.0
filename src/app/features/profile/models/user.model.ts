@@ -13,3 +13,18 @@ export interface UserDetails {
     lastName: string;
     details: UserDetails;
   }
+
+  export interface ChangePasswordRequest {
+    currentPassword: string;
+    newPassword: string;
+  }
+  
+  export interface UpdateProfileRequest {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string | null;
+    address: string | null;
+    pictureUrl: string | null;
+    dateOfBirth: string | null;
+  }

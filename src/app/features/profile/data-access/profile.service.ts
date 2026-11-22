@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap } from 'rxjs';
-import { User } from '../models/user.model';
+import { ChangePasswordRequest, UpdateProfileRequest, User } from '../models/user.model';
 import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { map } from 'rxjs';
@@ -27,5 +27,17 @@ getMe():Observable<User>{
   return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/api/users/me`).pipe(
     map((response)=>response.data)
   )
+}
+
+updateProfile(body:UpdateProfileRequest):Observable<unknown>{
+return  this.http.put(`${environment.apiUrl}/api/users`,body)
+}
+
+changePassword(body:ChangePasswordRequest):Observable<unknown>{
+  return this.http.put(`${environment.apiUrl}/api/users/change-password`,body)
+}
+
+deleteAccount():Observable<unknown>{
+  return this.http.delete(`${environment.apiUrl}/api/users/delete-profile`)
 }
 }
