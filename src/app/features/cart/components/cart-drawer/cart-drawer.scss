@@ -88,3 +88,32 @@
     font-weight: 700;
     color: $color-dark;
   }
+
+.drawer__button {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: $radius-sm;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.drawer__button--outline {
+  margin-top: 1.25rem;
+  border: 1px solid $color-border;
+  color: $color-text;
+}
+
+.drawer__button--outline:hover {
+  background: $color-bg;
+}
+
+.drawer__button--primary {
+  background: $color-blue;
+  color: #ffffff;
+}
+
+.drawer__button--primary:hover {
+  background: $color-blue-hover;
+}

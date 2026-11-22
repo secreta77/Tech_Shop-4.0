@@ -2,10 +2,11 @@ import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CartItem as CartItemModel } from '../../models/cart-item.model';
 import { CartItem } from '../cart-item/cart-item';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-drawer',
-  imports: [CartItem, DecimalPipe],
+  imports: [CartItem, DecimalPipe,RouterLink],
   templateUrl: './cart-drawer.html',
   styleUrl: './cart-drawer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

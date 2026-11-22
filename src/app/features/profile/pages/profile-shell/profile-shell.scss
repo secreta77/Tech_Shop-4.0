@@ -1,7 +1,13 @@
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 .profile {
   display: grid;
-  grid-template-columns: 17.5rem 1fr;
-  gap: 2rem;
+  grid-template-columns: 19rem 1fr;
+  gap: 2.5rem;
   align-items: start;
   padding-top: 2.5rem;
   padding-bottom: 4rem;

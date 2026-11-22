@@ -30,6 +30,13 @@
         <span>Total</span>
         <span>USD {{ total() | number: '1.0-0' }}</span>
       </div>
+
+      <a routerLink="/profile/cart" class="drawer__button drawer__button--outline" (click)="closed.emit()">
+        View Cart
+      </a>
+      <a routerLink="/profile/cart" class="drawer__button drawer__button--primary" (click)="closed.emit()">
+        Checkout
+      </a>
     </div>
   }
 </aside>

@@ -7,5 +7,11 @@ export const PROFILE_ROUTES: Routes = [
     canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/profile-shell/profile-shell').then((m) => m.ProfileShell),
+    children: [
+      {
+        path: 'cart',
+        loadComponent: () => import('../cart/pages/cart/cart').then((m) => m.Cart),
+      },
+    ],
   },
 ];

@@ -1,0 +1,57 @@
+<h1 class="cart__title">Shopping Cart</h1>
+<p class="cart__count">{{ count() }} {{ count() === 1 ? 'item' : 'items' }} in your cart</p>
+
+@if (items().length) {
+  <div class="cart__head">
+    <h2>Cart Items</h2>
+    <button type="button" class="cart__clear" (click)="clear()">
+      <i class="bi bi-trash"></i> Clear Cart
+    </button>
+  </div>
+
+  <div class="cart__list">
+    @for (item of items(); track item.id) {
+      <app-cart-row
+        [item]="item"
+        (quantityChange)="changeQuantity(item.id, $event)"
+        (removed)="remove(item.id)"
+      />
+    }
+  </div>
+
+  <a routerLink="/shop" class="cart__continue">
+    <i class="bi bi-arrow-left"></i> Continue Shopping
+  </a>
+
+  <section class="summary">
+    <h2>Order Summary</h2>
+
+    <div class="summary__row">
+      <span>Subtotal ({{ count() }} {{ count() === 1 ? 'item' : 'items' }})</span>
+      <span>${{ total() | number: '1.0-0' }}</span>
+    </div>
+    <div class="summary__row">
+      <span>Shipping</span>
+      <span class="summary__free">FREE</span>
+    </div>
+
+    <div class="summary__row summary__row--total">
+      <span>Total</span>
+      <span class="summary__total">USD {{ total() | number: '1.0-0' }}</span>
+    </div>
+
+    <button type="button" class="summary__checkout" [disabled]="checkingOut()" (click)="checkout()">
+      {{ checkingOut() ? 'Processing...' : 'Proceed to Checkout' }}
+      <i class="bi bi-lock"></i>
+    </button>
+
+    <p class="summary__secure"><i class="bi bi-shield-check"></i> Secure checkout guaranteed</p>
+  </section>
+} @else {
+  <div class="empty">
+    <i class="bi bi-cart3 empty__icon"></i>
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven't added anything to your cart yet. Start exploring our products!</p>
+    <a routerLink="/shop" class="empty__button"><i class="bi bi-arrow-right"></i> Continue Shopping</a>
+  </div>
+}
