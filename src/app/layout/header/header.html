@@ -28,9 +28,12 @@
 
     @if (isLoggedIn()) {
       <div class="actions">
-        <button type="button" class="icon-btn" aria-label="Favorites">
-          <i class="bi bi-heart"></i>
-        </button>
+        <a routerLink="/profile/favorites" class="icon-btn" aria-label="Favorites">
+            <i class="bi bi-heart"></i>
+            @if (favoriteCount() > 0) {
+              <span class="icon-btn__badge">{{ favoriteCount() }}</span>
+            }
+          </a>
         <button type="button" class="icon-btn" aria-label="Cart" (click)="cartOpen.set(true)">
           <i class="bi bi-cart"></i>
           @if (cartCount() > 0) {

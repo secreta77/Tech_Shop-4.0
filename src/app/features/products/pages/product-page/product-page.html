@@ -51,10 +51,21 @@
             <button type="button" aria-label="Increase" [disabled]="quantity() >= item.stock" (click)="increaseQuantity(item.stock)">+</button>
           </div>
         </div>
-
-        <button type="button" class="btn-primary" [disabled]="item.stock === 0" (click)="addCurrentToCart(item.id)">
-          <i class="bi bi-cart"></i> Add to Cart
-        </button>
+        <div class="info__actions">
+  
+          <button type="button" class="btn-primary" [disabled]="item.stock === 0" (click)="addCurrentToCart(item.id)">
+            <i class="bi bi-cart"></i> Add to Cart
+          </button>
+          <button
+            type="button"
+            class="info__favorite"
+            [class.info__favorite--active]="favoriteIds().has(item.id)"
+            aria-label="Toggle favorite"
+            (click)="toggleFavorite(item.id)"
+          >
+            <i class="bi" [class.bi-heart-fill]="favoriteIds().has(item.id)" [class.bi-heart]="!favoriteIds().has(item.id)"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -119,7 +130,9 @@
 
         <div class="related__grid">
           @for (relatedProduct of related(); track relatedProduct.id) {
-            <app-product-card [product]="relatedProduct" (addToCart)="addToCart($event)" />
+            <app-product-card [product]="relatedProduct" [favorite]="favoriteIds().has(relatedProduct.id)"
+              (addToCart)="addToCart($event)"
+              (favoriteToggle)="toggleFavorite($event)" />
           }
         </div>
       </section>

@@ -1,0 +1,31 @@
+<div class="favorites__head">
+  <div>
+    <h1 class="favorites__title">My Favorites</h1>
+    <p class="favorites__count">{{ items().length }} {{ items().length === 1 ? 'item' : 'items' }} saved</p>
+  </div>
+
+  @if (items().length) {
+    <button type="button" class="favorites__clear" (click)="clear()">
+      <i class="bi bi-trash"></i> Clear All
+    </button>
+  }
+</div>
+
+@if (items().length) {
+  <div class="favorites__grid">
+    @for (product of items(); track product.id) {
+      <app-favorite-card
+        [product]="product"
+        (addToCart)="addToCart($event)"
+        (removed)="remove($event)"
+      />
+    }
+  </div>
+} @else {
+  <div class="empty">
+    <i class="bi bi-heart empty__icon"></i>
+    <h2>No favorites yet</h2>
+    <p>Tap the heart on any product to save it here for later.</p>
+    <a routerLink="/shop" class="empty__button"><i class="bi bi-arrow-right"></i> Continue Shopping</a>
+  </div>
+}

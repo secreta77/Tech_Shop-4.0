@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/auth/data-access/auth.service';
 import { CartDrawer } from '../../features/cart/components/cart-drawer/cart-drawer';
+import { FavoritesService } from '../../features/favorites/data-access/favorites.service';
 import { CartService } from '../../features/cart/data-access/cart.service';
 import { ProfileService } from '../../features/profile/data-access/profile.service';
 
@@ -17,12 +18,15 @@ export class Header {
   private readonly router = inject(Router)
   private readonly profileService = inject(ProfileService)
   private readonly cartService = inject(CartService)
+  private readonly favoritesService = inject(FavoritesService)
 
 
 
 protected isLoggedIn = this.authService.isLoggedIn
 
 protected readonly cartCount = this.cartService.count
+
+protected readonly favoriteCount = this.favoritesService.count
 
 protected readonly cartOpen = signal(false)
 

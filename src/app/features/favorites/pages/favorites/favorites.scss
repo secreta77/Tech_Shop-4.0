@@ -1,0 +1,93 @@
+@use '../../../../../styles/variables' as *;
+
+.favorites__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.favorites__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-text;
+  font: inherit;
+  cursor: pointer;
+}
+
+.favorites__clear:hover {
+  border-color: $color-error;
+  color: $color-error;
+}
+
+.favorites__title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $color-dark;
+}
+
+.favorites__count {
+  margin: 0.25rem 0 0;
+  color: $color-text-muted;
+}
+
+.favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.empty {
+  padding: 4rem 1.5rem;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.empty__icon {
+  font-size: 4rem;
+  color: #c4c8cf;
+}
+
+.empty h2 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $color-dark;
+}
+
+.empty p {
+  max-width: 24rem;
+  margin: 0 auto 1.5rem;
+  color: $color-text-muted;
+}
+
+.empty__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: $radius-sm;
+  background: $color-blue;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.empty__button:hover {
+  background: $color-blue-hover;
+}
+
+@media (max-width: 40rem) {
+  .favorites__grid {
+    grid-template-columns: 1fr;
+  }
+}

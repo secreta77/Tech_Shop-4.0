@@ -7,6 +7,7 @@ import { Benefits } from '../../components/benefits/benefits';
 import { HomeService } from '../../data-access/home.service';
 import { Hero } from '../../components/hero/hero';
 import { CartService } from '../../../cart/data-access/cart.service';
+import { FavoritesService } from '../../../favorites/data-access/favorites.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ import { CartService } from '../../../cart/data-access/cart.service';
 export class Home {
   private readonly homeService = inject(HomeService);
   private readonly cartService = inject(CartService);
+  private readonly favoritesService = inject(FavoritesService);
+  protected readonly favoriteIds = this.favoritesService.ids;
 
   readonly featuredCategories = toSignal(this.homeService.featuredCategories$, { initialValue: [] });
   readonly products = toSignal(this.homeService.featuredProducts$, { initialValue: [] });
@@ -25,5 +28,9 @@ export class Home {
 
   protected addToCart(productId: number): void {
     this.cartService.addToCart(productId);
+  }
+
+  protected toggleFavorite(productId: number): void {
+    this.favoritesService.toggle(productId);
   }
 }

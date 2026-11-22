@@ -320,3 +320,33 @@
   text-align: center;
   font-weight: 600;
 }
+
+.info__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.info__actions .btn-primary {
+  flex: 1;
+  width: auto;
+}
+
+.info__favorite {
+  display: grid;
+  place-items: center;
+  flex: 0 0 3rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface;
+  color: $color-text;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.info__favorite:hover {
+  color: $color-primary;
+}
+
+.info__favorite--active {
+  color: $color-error;
+}

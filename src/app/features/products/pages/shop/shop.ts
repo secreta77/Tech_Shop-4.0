@@ -9,6 +9,7 @@ import { ProductsService } from '../../data-access/products.service';
 import { ProductQuery } from '../../models/product-query.model';
 import { ShopFilters } from '../../components/shop-filters/shop-filters';
 import { CartService } from '../../../cart/data-access/cart.service';
+import { FavoritesService } from '../../../favorites/data-access/favorites.service';
 
 
 const SORT_OPTIONS = [
@@ -33,6 +34,8 @@ export class Shop {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
+  private readonly favoritesService = inject(FavoritesService);
+  protected readonly favoriteIds = this.favoritesService.ids;
 
   private readonly params = toSignal(this.route.queryParamMap, {
     initialValue: this.route.snapshot.queryParamMap,
@@ -174,5 +177,9 @@ export class Shop {
 
   protected addToCart(productId: number): void {
     this.cartService.addToCart(productId);
+  }
+
+  protected toggleFavorite(productId: number): void {
+    this.favoritesService.toggle(productId);
   }
 }

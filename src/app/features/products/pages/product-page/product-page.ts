@@ -8,6 +8,7 @@ import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from '../../data-access/products.service';
 import { ReviewsService } from '../../../reviews/data-access/reviews.service';
 import { CartService } from '../../../cart/data-access/cart.service';
+import { FavoritesService } from '../../../favorites/data-access/favorites.service';
 
 @Component({
   selector: 'app-product-page',
@@ -20,6 +21,8 @@ export class ProductPage {
   private readonly route = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
+  private readonly favoritesService = inject(FavoritesService);
+  protected readonly favoriteIds = this.favoritesService.ids;
   private readonly reviewService = inject(ReviewsService)
 
 
@@ -102,5 +105,9 @@ protected readonly related = toSignal(toObservable(this.product).pipe(
 
   protected addCurrentToCart(productId: number): void {
     this.cartService.addToCart(productId, this.quantity());
+  }
+
+  protected toggleFavorite(productId: number): void {
+    this.favoritesService.toggle(productId);
   }
 }

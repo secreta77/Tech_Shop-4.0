@@ -12,6 +12,11 @@ export const PROFILE_ROUTES: Routes = [
         path: 'cart',
         loadComponent: () => import('../cart/pages/cart/cart').then((m) => m.Cart),
       },
+      {
+        path: 'favorites',
+        loadComponent: () =>
+          import('../favorites/pages/favorites/favorites').then((m) => m.Favorites),
+      },
     ],
   },
 ];

@@ -1,0 +1,46 @@
+<article class="card">
+    <div class="card__media">
+      <a class="card__image" [routerLink]="['/products', product().id]">
+        <img [ngSrc]="product().imageUrl" [alt]="product().name" fill />
+      </a>
+  
+      @if (soldOut()) {
+        <span class="card__badge card__badge--out">OUT OF STOCK</span>
+      } @else if (lowStock()) {
+        <span class="card__badge card__badge--low">LOW STOCK</span>
+      }
+  
+      <button type="button" class="card__heart" aria-label="Remove from favorites" (click)="removed.emit(product().id)">
+        <i class="bi bi-heart-fill"></i>
+      </button>
+    </div>
+  
+    <div class="card__body">
+      <p class="card__brand">{{ product().brand }}</p>
+  
+      <h3 class="card__name">
+        <a [routerLink]="['/products', product().id]">{{ product().name }}</a>
+      </h3>
+  
+      <p class="card__model">Model: {{ product().model }}</p>
+  
+      <span class="card__chip"><i class="bi bi-grid"></i> {{ product().category.name }}</span>
+  
+      <div class="card__rating">
+        @for (star of stars; track star) {
+          <span class="star" [class.star--filled]="star <= filledStars()">★</span>
+        }
+        <span class="card__rating-number">({{ product().rating | number: '1.1-1' }})</span>
+      </div>
+  
+      <p class="card__price">USD {{ product().price | number: '1.0-0' }}</p>
+  
+      <button type="button" class="card__button" [disabled]="soldOut()" (click)="addToCart.emit(product().id)">
+        @if (soldOut()) {
+          Out of Stock
+        } @else {
+          <i class="bi bi-cart"></i> Add to Cart
+        }
+      </button>
+    </div>
+  </article>

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { computed, inject, Injectable, linkedSignal, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, map, mergeMap, Observable, of, Subject, switchMap } from 'rxjs';
+import { catchError, EMPTY, forkJoin, map, mergeMap, Observable, of, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ApiResponse } from '../../../core/models/api-response.model';
 import { Paginated } from '../../../core/models/paginated.model';
@@ -41,6 +41,8 @@ export class FavoritesService {
 
   readonly ids = linkedSignal(() => new Set(this.items().map((product) => product.id)));
 
+  readonly count = computed(() => this.ids().size);
+
   constructor() {
     this.toggleClicked
       .pipe(
@@ -74,6 +76,21 @@ export class FavoritesService {
     }
 
     this.toggleClicked.next(productId);
+  }
+
+  clear(): void {
+    const items = this.items();
+    if (items.length === 0) {
+      return;
+    }
+
+    forkJoin(items.map((product) => this.remove(product.id))).subscribe({
+      next: () => {
+        this.toastService.success('Favorites cleared');
+        this.reload();
+      },
+      error: () => this.reload(),
+    });
   }
 
   getItems(take = 100, page = 1): Observable<Paginated<Product>> {
