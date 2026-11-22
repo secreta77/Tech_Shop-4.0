@@ -1,1 +1,7 @@
-<p>profile-shell works!</p>
+<section class="container profile">
+  <app-profile-sidebar [user]="user()" (loggedOut)="logout()" />
+
+  <div class="profile__content">
+    <router-outlet />
+  </div>
+</section>

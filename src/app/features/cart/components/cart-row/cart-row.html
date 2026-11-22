@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="row__image">
+      <img [ngSrc]="item().product.imageUrl" [alt]="item().product.name" fill />
+    </div>
+  
+    <div class="row__info">
+      <p class="row__name">{{ item().product.name }}</p>
+      <p class="row__brand">{{ item().product.brand }}</p>
+    </div>
+  
+    <p class="row__price">${{ item().price | number: '1.0-0' }}</p>
+  
+    <div class="row__qty">
+      <button
+        type="button"
+        aria-label="Decrease"
+        [disabled]="item().quantity <= 1"
+        (click)="quantityChange.emit(item().quantity - 1)"
+      >
+        −
+      </button>
+      <span>{{ item().quantity }}</span>
+      <button
+        type="button"
+        aria-label="Increase"
+        [disabled]="item().quantity >= item().product.stock"
+        (click)="quantityChange.emit(item().quantity + 1)"
+      >
+        +
+      </button>
+    </div>
+  
+    <p class="row__total">USD {{ item().totalPrice | number: '1.0-0' }}</p>
+  
+    <button type="button" class="row__remove" aria-label="Remove" (click)="removed.emit()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>

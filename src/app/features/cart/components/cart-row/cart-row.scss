@@ -1,0 +1,103 @@
+@use '../../../../../styles/variables' as *;
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: $radius-md;
+  background: $color-surface;
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.06);
+}
+
+.row__image {
+  position: relative;
+  flex: 0 0 5rem;
+  height: 5rem;
+  overflow: hidden;
+  border-radius: $radius-sm;
+  background: $color-bg;
+}
+
+.row__image img {
+  object-fit: cover;
+}
+
+.row__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.row__name {
+  margin: 0;
+  font-weight: 600;
+  color: $color-dark;
+}
+
+.row__brand {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: $color-text-muted;
+}
+
+.row__price {
+  margin: 0;
+  color: $color-text-muted;
+}
+
+.row__qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+}
+
+.row__qty button {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.row__qty button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.row__qty span {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.row__total {
+  flex: 0 0 6rem;
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+  color: $color-dark;
+}
+
+.row__remove {
+  border: none;
+  background: none;
+  color: $color-text-muted;
+  cursor: pointer;
+}
+
+.row__remove:hover {
+  color: $color-error;
+}
+
+@media (max-width: 48rem) {
+  .row {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .row__info {
+    flex: 1 0 60%;
+  }
+}
