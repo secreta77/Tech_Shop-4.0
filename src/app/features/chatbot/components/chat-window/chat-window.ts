@@ -8,11 +8,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ChatMessage } from '../../models/chat.model';
+import { MessagePartsPipe } from '../../pipes/message-parts.pipe';
 
 @Component({
   selector: 'app-chat-window',
-  imports: [],
+  imports: [RouterLink, MessagePartsPipe],
   templateUrl: './chat-window.html',
   styleUrl: './chat-window.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

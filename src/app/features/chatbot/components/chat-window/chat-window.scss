@@ -137,6 +137,12 @@
   overflow-wrap: anywhere;
 }
 
+.chat__link {
+  color: $color-primary;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .chat__bubble--user {
   background: $color-primary;
   color: #ffffff;

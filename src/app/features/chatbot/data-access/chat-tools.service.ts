@@ -223,6 +223,7 @@ export class ChatToolsService {
       total: page.totalCount,
       products: page.items.map((product) => ({
         id: product.id,
+        link: `/products/${product.id}`,
         name: product.name,
         brand: product.brand,
         price: product.price,
@@ -243,6 +244,7 @@ export class ChatToolsService {
     const product = await firstValueFrom(this.productsService.getById(productId));
     return {
       id: product.id,
+      link: `/products/${product.id}`,
       name: product.name,
       brand: product.brand,
       model: product.model,
@@ -272,6 +274,7 @@ export class ChatToolsService {
       items: page.items.map((item) => ({
         itemId: item.id,
         productId: item.product.id,
+        link: `/products/${item.product.id}`,
         name: item.product.name,
         quantity: item.quantity,
         unitPrice: item.price,
@@ -344,6 +347,7 @@ private async listFavorites():Promise<unknown>{
   const page = await firstValueFrom(this.favoritesService.getItems())
   return page.items.map((product) => ({
     id: product.id,
+    link: `/products/${product.id}`,
     name: product.name,
     brand: product.brand,
     price: product.price,

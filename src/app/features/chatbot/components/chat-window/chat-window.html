@@ -27,7 +27,15 @@
 
     @for (message of messages(); track message.id) {
       <div class="chat__row" [class.chat__row--user]="message.role === 'user'">
-        <div class="chat__bubble" [class.chat__bubble--user]="message.role === 'user'">{{ message.text }}</div>
+        <div class="chat__bubble" [class.chat__bubble--user]="message.role === 'user'">
+          @for (part of message.text | messageParts; track $index) {
+            @if (part.url) {
+              <a class="chat__link" [routerLink]="part.url">{{ part.text }}</a>
+            } @else {
+              <span>{{ part.text }}</span>
+            }
+          }
+        </div>
       </div>
     }
 

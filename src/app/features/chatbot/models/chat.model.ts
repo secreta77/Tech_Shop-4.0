@@ -48,3 +48,8 @@ export interface SavedChat {
   conversation: ClaudeMessage[];
   messages: ChatMessage[];
 }
+
+export interface MessagePart {
+  text: string;
+  url: string | null;
+}
