@@ -91,3 +91,17 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 40rem) {
+  .favorites__head {
+    flex-wrap: wrap;
+  }
+
+  .favorites__title {
+    font-size: 1.5rem;
+  }
+
+  .empty {
+    padding: 2.5rem 1rem;
+  }
+}

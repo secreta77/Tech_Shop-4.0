@@ -350,3 +350,26 @@
 .info__favorite--active {
   color: $color-error;
 }
+
+@media (max-width: 40rem) {
+  .tabs {
+    gap: 1.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs__tab {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 40rem) {
+  .specs__row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .specs__key {
+    overflow-wrap: anywhere;
+  }
+}

@@ -172,3 +172,76 @@ button.sign-in {
   font-size: 0.6875rem;
   font-weight: 700;
 }
+
+@media (max-width: 64rem) {
+  .header__inner {
+    gap: 1rem;
+  }
+
+  .search {
+    flex: 1 1 8rem;
+    min-width: 0;
+  }
+
+  .logout {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .header__inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.75rem 1rem;
+    gap: 0.75rem 1rem;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .actions,
+  .sign-in {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .nav {
+    order: 3;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .nav a {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .search {
+    order: 4;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 22.5rem) {
+  .logo__text {
+    display: none;
+  }
+
+  .actions {
+    gap: 0.5rem;
+  }
+
+  .sign-in {
+    padding: 0.625rem 1.25rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .header {
+    position: relative;
+  }
+}
+
+app-cart-drawer {
+  display: contents;
+}

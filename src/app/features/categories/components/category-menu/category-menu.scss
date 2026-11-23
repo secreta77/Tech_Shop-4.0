@@ -93,3 +93,10 @@
   color: $color-primary;
   font-weight: 600;
 }
+@media (max-width: 48rem) {
+  .menu__panel {
+    right: 0;
+    left: auto;
+    min-width: min(15rem, calc(100vw - 2rem));
+  }
+}

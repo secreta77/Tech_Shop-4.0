@@ -176,3 +176,39 @@
     background-position: -200% 0;
   }
 }
+
+@media (max-width: 62rem) {
+  .shop-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 48rem) {
+  .shop-hero {
+    padding: 2rem 0;
+  }
+
+  .shop-layout {
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .shop-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .shop-toolbar__search {
+    flex: 1 1 100%;
+  }
+
+  .shop-toolbar__right {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 40rem) {
+  .shop__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

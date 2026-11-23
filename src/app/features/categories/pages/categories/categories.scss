@@ -42,3 +42,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+@media (max-width: 40rem) {
+  .categories {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .categories-hero {
+    padding: 2rem 0;
+  }
+}

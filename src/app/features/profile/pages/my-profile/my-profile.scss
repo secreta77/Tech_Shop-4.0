@@ -176,3 +176,13 @@
     align-items: stretch;
   }
 }
+
+@media (max-width: 40rem) {
+  .card__head {
+    padding: 1rem 1.25rem;
+  }
+
+  .card__body {
+    padding: 1.25rem;
+  }
+}
