@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { firstValueFrom, skip } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../auth/data-access/auth.service';
+import { ProfileService } from '../../profile/data-access/profile.service';
 import {
   ChatMessage,
   ClaudeMessage,
   ClaudeResponse,
+  SavedChat,
   TextBlock,
   ToolResultBlock,
   ToolUseBlock,
@@ -44,7 +45,7 @@ Today's date is ${today}.
 export class ChatbotService {
   private readonly http = inject(HttpClient);
   private readonly toolsService = inject(ChatToolsService);
-  private readonly authService = inject(AuthService);
+  private readonly profileService = inject(ProfileService);
 
   private conversation: ClaudeMessage[] = [];
   private nextId = 1;
@@ -52,15 +53,21 @@ export class ChatbotService {
   readonly messages = signal<ChatMessage[]>([]);
   readonly busy = signal(false);
 
+  private readonly storageKey = computed(
+    () => `chat:${this.profileService.currentUser()?.id ?? 'guest'}`,
+  );
+
   constructor() {
-    toObservable(this.authService.isLoggedIn)
-      .pipe(skip(1), takeUntilDestroyed())
-      .subscribe(() => this.reset());
+    toObservable(this.storageKey)
+      .pipe(takeUntilDestroyed())
+      .subscribe((key) => this.load(key));
   }
 
   reset(): void {
     this.conversation = [];
     this.messages.set([]);
+    this.nextId = 1;
+    this.save();
   }
 
   async send(text: string): Promise<void> {
@@ -112,6 +119,7 @@ export class ChatbotService {
       this.addMessage('assistant', 'Sorry, something went wrong. Please try again in a moment.');
     } finally {
       this.busy.set(false);
+      this.save();
     }
   }
 
@@ -142,6 +150,30 @@ export class ChatbotService {
 
     if (start > 0) {
       this.conversation = this.conversation.slice(start);
+    }
+  }
+
+  private load(key: string): void {
+    try {
+      const saved = sessionStorage.getItem(key);
+      const data = saved ? (JSON.parse(saved) as SavedChat) : null;
+
+      this.conversation = data?.conversation ?? [];
+      this.messages.set(data?.messages ?? []);
+      this.nextId = (data?.messages.at(-1)?.id ?? 0) + 1;
+    } catch {
+      this.conversation = [];
+      this.messages.set([]);
+      this.nextId = 1;
+    }
+  }
+
+  private save(): void {
+    try {
+      const data: SavedChat = { conversation: this.conversation, messages: this.messages() };
+      sessionStorage.setItem(this.storageKey(), JSON.stringify(data));
+    } catch {
+      return;
     }
   }
 
