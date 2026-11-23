@@ -1,0 +1,56 @@
+<section class="chat">
+  <header class="chat__header">
+    <div class="chat__avatar"><i class="bi bi-robot"></i></div>
+    <div class="chat__title">
+      <p class="chat__name">STEP TECH Assistant</p>
+      <p class="chat__status">Online · Ask me anything</p>
+    </div>
+    <button type="button" class="chat__icon-btn" aria-label="New conversation" (click)="cleared.emit()">
+      <i class="bi bi-arrow-counterclockwise"></i>
+    </button>
+    <button type="button" class="chat__icon-btn" aria-label="Close chat" (click)="closed.emit()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </header>
+
+  <div class="chat__body" #body>
+    @if (messages().length === 0) {
+      <div class="chat__welcome">
+        <p>Hi! I can help you find products, manage your cart and place orders.</p>
+        <div class="chat__suggestions">
+          @for (suggestion of suggestions; track suggestion) {
+            <button type="button" class="chat__chip" (click)="ask(suggestion)">{{ suggestion }}</button>
+          }
+        </div>
+      </div>
+    }
+
+    @for (message of messages(); track message.id) {
+      <div class="chat__row" [class.chat__row--user]="message.role === 'user'">
+        <div class="chat__bubble" [class.chat__bubble--user]="message.role === 'user'">{{ message.text }}</div>
+      </div>
+    }
+
+    @if (busy()) {
+      <div class="chat__row">
+        <div class="chat__bubble chat__typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <form class="chat__form" (submit)="$event.preventDefault(); submit()">
+    <input
+      type="text"
+      class="chat__input"
+      placeholder="Type your message..."
+      autocomplete="off"
+      [value]="draft()"
+      (input)="onInput($event)"
+    />
+    <button type="submit" class="chat__send" aria-label="Send" [disabled]="busy() || !draft().trim()">
+      <i class="bi bi-send-fill"></i>
+    </button>
+  </form>
+</section>

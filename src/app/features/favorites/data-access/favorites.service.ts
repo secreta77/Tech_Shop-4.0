@@ -9,6 +9,7 @@ import { Paginated } from '../../../core/models/paginated.model';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../../auth/data-access/auth.service';
 import { Product } from '../../products/models/product.model';
+import { FavoriteChange } from '../models/favorite.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +54,7 @@ export class FavoritesService {
           const request = wasFavorite ? this.remove(productId) : this.add(productId);
 
           return request.pipe(
-            map(() => !wasFavorite),
+            map((): FavoriteChange => ({ productId, added: !wasFavorite })),
             catchError(() => {
               this.setLocal(productId, wasFavorite);
               return EMPTY;
@@ -62,8 +63,8 @@ export class FavoritesService {
         }),
         takeUntilDestroyed(),
       )
-      .subscribe((added) => {
-        this.toastService.success(added ? 'Added to favorites' : 'Removed from favorites');
+      .subscribe((change) => {
+        this.toastService.success(change.added ? 'Added to favorites' : 'Removed from favorites');
         this.reload();
       });
   }

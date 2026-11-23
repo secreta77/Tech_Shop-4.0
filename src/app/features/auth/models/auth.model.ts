@@ -33,3 +33,9 @@ export interface AuthFeature {
   title: string;
   text: string;
 }
+
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+}

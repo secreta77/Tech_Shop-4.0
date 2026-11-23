@@ -25,6 +25,16 @@ export const AUTH_ROUTES:Routes = [
         loadComponent:()=> import('./pages/verify-email/verify-email').then((m)=>m.VerifyEmail)
     },
 
+    {
+        path:'forgot-password',
+        canActivate:[guestGuard],
+        loadComponent:()=> import('./pages/forgot-password/forgot-password').then((m)=>m.ForgotPassword)
+    },
 
+    {
+        path:'reset-password',
+        canActivate:[guestGuard],
+        loadComponent:()=> import('./pages/reset-password/reset-password').then((m)=>m.ResetPassword)
+    },
 
 ]

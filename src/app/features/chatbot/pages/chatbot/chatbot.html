@@ -1,0 +1,15 @@
+<div class="widget">
+  @if (open()) {
+    <app-chat-window
+      [messages]="messages()"
+      [busy]="busy()"
+      (sent)="send($event)"
+      (cleared)="clear()"
+      (closed)="open.set(false)"
+    />
+  }
+
+  <button type="button" class="widget__toggle" aria-label="Open chat" (click)="toggle()">
+    <i class="bi" [class.bi-chat-dots-fill]="!open()" [class.bi-x-lg]="open()"></i>
+  </button>
+</div>

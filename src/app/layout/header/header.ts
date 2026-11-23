@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/auth/data-access/auth.service';
+import { CategoryMenu } from '../../features/categories/components/category-menu/category-menu';
+import { CategoriesService } from '../../features/categories/data-access/categories.service';
 import { CartDrawer } from '../../features/cart/components/cart-drawer/cart-drawer';
 import { FavoritesService } from '../../features/favorites/data-access/favorites.service';
 import { CartService } from '../../features/cart/data-access/cart.service';
@@ -8,7 +11,7 @@ import { ProfileService } from '../../features/profile/data-access/profile.servi
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,RouterLinkActive,CartDrawer],
+  imports: [RouterLink,RouterLinkActive,CartDrawer,CategoryMenu],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection:ChangeDetectionStrategy.OnPush
@@ -19,10 +22,13 @@ export class Header {
   private readonly profileService = inject(ProfileService)
   private readonly cartService = inject(CartService)
   private readonly favoritesService = inject(FavoritesService)
+  private readonly categoriesService = inject(CategoriesService)
 
 
 
 protected isLoggedIn = this.authService.isLoggedIn
+
+protected readonly categories = toSignal(this.categoriesService.categories, { initialValue: [] })
 
 protected readonly cartCount = this.cartService.count
 

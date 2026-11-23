@@ -8,6 +8,7 @@ import {
   AuthTokens,
   LoginRequest,
   RegisterRequest,
+  ResetPasswordRequest,
   VerifyEmailRequest,
 } from '../models/auth.model';
 
@@ -47,5 +48,14 @@ export class AuthService {
 
   logout(): void {
     this.tokenStorage.clear();
+  }
+
+  forgotPassword(email:string):Observable<unknown>{
+    return this.http.post(`${this.baseUrl}/forget-password/${encodeURIComponent(email)}`,null)
+
+  }
+
+  resetPassword(body:ResetPasswordRequest):Observable<unknown>{
+    return this.http.put(`${this.baseUrl}/reset-password`,body)
   }
 }

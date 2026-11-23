@@ -1,0 +1,26 @@
+<div class="menu">
+    <button type="button" class="menu__trigger" [class.menu__trigger--open]="open()" (click)="toggle()">
+      Categories
+      <i class="bi bi-chevron-down menu__arrow"></i>
+    </button>
+  
+    @if (open()) {
+      <div class="menu__panel">
+        @for (category of categories(); track category.id) {
+          <a
+            class="menu__item"
+            routerLink="/shop"
+            [queryParams]="{ category: category.id, page: null }"
+            (click)="close()"
+          >
+            <span>{{ category.name }}</span>
+            <span class="menu__count">{{ category.productCount }}</span>
+          </a>
+        }
+  
+        <a class="menu__item menu__item--all" routerLink="/categories" (click)="close()">
+          View all categories <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    }
+  </div>

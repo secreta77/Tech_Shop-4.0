@@ -37,6 +37,7 @@
         <input type="checkbox" [formField]="loginForm.remember" />
         Remember me
       </label>
+      <a routerLink="/forgot-password" class="link">Forgot password?</a>
     </div>
 
     <button type="submit" class="btn-primary" [disabled]="loginForm().submitting()">

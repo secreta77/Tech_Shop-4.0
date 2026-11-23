@@ -10,6 +10,7 @@ import { AuthFeature, AuthStat } from '../../models/auth.model';
 })
 export class AuthLayout {
   readonly icon = input.required<string>();
+  readonly brandTitle = input('STEP TECH');
   readonly title = input.required<string>();
   readonly subtitle = input.required<string>();
   readonly description = input.required<string>();

@@ -1,7 +1,7 @@
 <div class="auth">
   <aside class="auth__brand">
     <span class="auth__logo"><i class="bi bi-briefcase"></i></span>
-    <h2 class="auth__brand-title">STEP TECH</h2>
+    <h2 class="auth__brand-title">{{ brandTitle() }}</h2>
     <p class="auth__brand-text">{{ description() }}</p>
 
     @if (stats().length) {

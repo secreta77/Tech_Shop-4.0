@@ -5,8 +5,14 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { ProblemDetails } from '../models/problem-details.model';
+import { environment } from '../../../environments/environment';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+
+  if(!req.url.startsWith(environment.apiUrl)){
+    return next(req)
+  }
+
   const toast = inject(ToastService);
   const tokenStorage = inject(TokenStorageService);
   const router = inject(Router);
@@ -30,4 +36,5 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       return throwError(()=>error)
     }),
   );
+
 };
