@@ -84,7 +84,7 @@
 
 .settings__row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.5rem;
 }
 
@@ -187,7 +187,7 @@
 
 @media (max-width: 48rem) {
   .settings__row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .delete {

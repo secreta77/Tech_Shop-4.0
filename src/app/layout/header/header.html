@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header__inner">
-    <a routerLink="/" class="logo">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
       <span class="logo__icon">
         <svg
           viewBox="0 0 24 24"
@@ -36,7 +36,7 @@
 
     @if (isLoggedIn()) {
       <div class="actions">
-        <a routerLink="/profile/favorites" class="icon-btn" aria-label="Favorites">
+        <a routerLink="/profile/favorites" class="icon-btn icon-btn--favorites" aria-label="Favorites">
             <i class="bi bi-heart"></i>
             @if (favoriteCount() > 0) {
               <span class="icon-btn__badge">{{ favoriteCount() }}</span>
@@ -48,7 +48,7 @@
             <span class="icon-btn__badge">{{ cartCount() }}</span>
           }
         </button>
-        <a routerLink="/profile" class="avatar">{{ initials() }}</a>
+        <a routerLink="/profile" class="avatar avatar--header">{{ initials() }}</a>
         <button type="button" class="logout" (click)="logout()">Logout</button>
       </div>
 
@@ -64,5 +64,75 @@
     } @else {
       <a routerLink="/login" class="sign-in">Sign In</a>
     }
+
+    <button
+      type="button"
+      class="burger"
+      [class.burger--open]="menuOpen()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Menu"
+      (click)="toggleMenu()"
+    >
+      <i class="bi" [class.bi-list]="!menuOpen()" [class.bi-x-lg]="menuOpen()"></i>
+    </button>
   </div>
+
+  @if (menuOpen()) {
+    <div class="mobile-menu" animate.enter="mobile-menu--enter" animate.leave="mobile-menu--leave">
+      <input
+        #mobileSearchInput
+        type="search"
+        class="mobile-menu__search"
+        placeholder="Search products..."
+        (keyup.enter)="search(mobileSearchInput.value)"
+        (search)="search(mobileSearchInput.value)"
+      />
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="mobile-menu__link"
+        (click)="closeMenu()"
+        >Home</a
+      >
+      <a routerLink="/shop" routerLinkActive="active" class="mobile-menu__link" (click)="closeMenu()"
+        >Shop</a
+      >
+
+      <p class="mobile-menu__title">Categories</p>
+      @for (category of categories(); track category.id) {
+        <a
+          class="mobile-menu__sublink"
+          routerLink="/shop"
+          [queryParams]="{ category: category.id, page: null }"
+          (click)="closeMenu()"
+          >{{ category.name }}</a
+        >
+      }
+      <a class="mobile-menu__sublink" routerLink="/categories" (click)="closeMenu()"
+        >View all categories</a
+      >
+
+      @if (isLoggedIn()) {
+        <div class="mobile-menu__divider"></div>
+        <a routerLink="/profile" class="mobile-menu__link" (click)="closeMenu()">My Profile</a>
+        <a routerLink="/profile/favorites" class="mobile-menu__link" (click)="closeMenu()">
+          Favorites
+          @if (favoriteCount() > 0) {
+            <span class="mobile-menu__badge">{{ favoriteCount() }}</span>
+          }
+        </a>
+        <button type="button" class="mobile-menu__link" (click)="openCart()">
+          Cart
+          @if (cartCount() > 0) {
+            <span class="mobile-menu__badge">{{ cartCount() }}</span>
+          }
+        </button>
+        <button type="button" class="mobile-menu__link mobile-menu__link--danger" (click)="logout()">
+          Logout
+        </button>
+      }
+    </div>
+  }
 </header>

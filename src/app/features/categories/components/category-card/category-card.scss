@@ -23,6 +23,7 @@
 }
 
 img {
+  flex-shrink: 0;
   width: 4rem;
   height: 4rem;
   border-radius: $radius-md;
@@ -48,6 +49,7 @@ p {
 }
 
 .card__arrow {
+  flex-shrink: 0;
   color: $color-text-muted;
 }
 

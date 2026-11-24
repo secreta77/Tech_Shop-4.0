@@ -25,21 +25,21 @@
 
 .categories {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem;
   padding-top: 2rem;
   padding-bottom: 4rem;
 }
 
-@media (max-width: 64rem) {
+@media (max-width: 72rem) {
   .categories {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 40rem) {
   .categories {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

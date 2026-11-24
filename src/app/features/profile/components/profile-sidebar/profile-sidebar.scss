@@ -103,7 +103,7 @@
   background: $color-error-light;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 56rem) {
   .sidebar__header {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -130,11 +130,9 @@
   }
 
   .sidebar__nav {
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: 0.5rem;
     padding: 0.75rem;
-    overflow-x: auto;
-    scrollbar-width: none;
   }
 
   .sidebar__link {
@@ -153,5 +151,16 @@
 
   .sidebar__divider {
     display: none;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .sidebar__nav {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar__link {
+    width: 100%;
   }
 }

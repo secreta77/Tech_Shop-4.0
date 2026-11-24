@@ -5,7 +5,7 @@
   inset: 0;
   z-index: 200;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   background-color: $color-surface;
 }
 
@@ -157,7 +157,7 @@
 
 @media (max-width: 56rem) {
   .auth {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .auth__brand {

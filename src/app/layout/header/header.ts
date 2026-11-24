@@ -14,7 +14,10 @@ import { ProfileService } from '../../features/profile/data-access/profile.servi
   imports: [RouterLink,RouterLinkActive,CartDrawer,CategoryMenu],
   templateUrl: './header.html',
   styleUrl: './header.scss',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection:ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown.escape)': 'closeMenu()',
+  },
 })
 export class Header {
   private readonly authService = inject(AuthService)
@@ -36,6 +39,21 @@ protected readonly favoriteCount = this.favoritesService.count
 
 protected readonly cartOpen = signal(false)
 
+protected readonly menuOpen = signal(false)
+
+protected toggleMenu():void{
+  this.menuOpen.update((value)=>!value)
+}
+
+protected closeMenu():void{
+  this.menuOpen.set(false)
+}
+
+protected openCart():void{
+  this.menuOpen.set(false)
+  this.cartOpen.set(true)
+}
+
 protected readonly cartItems = this.cartService.items
 protected readonly cartTotal = this.cartService.total
 
@@ -50,6 +68,7 @@ protected removeFromCart(itemId:number):void{
 
 
 protected logout():void{
+  this.menuOpen.set(false)
   this.authService.logout();
   this.router.navigate(['/'])
 
@@ -64,6 +83,7 @@ protected readonly initials = computed(()=>{
 
 
 protected search(term: string): void {
+  this.menuOpen.set(false)
   this.router.navigate(['/shop'], { queryParams: { search: term.trim() || null, page: null } })
 }
 
