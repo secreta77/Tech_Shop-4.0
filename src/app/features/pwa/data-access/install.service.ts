@@ -2,6 +2,9 @@ import { computed, Injectable, inject, signal } from '@angular/core';
 import { ToastService } from '../../../core/services/toast.service';
 import { BeforeInstallPromptEvent, NavigatorWithStandalone } from '../models/install-prompt.model';
 
+const FALLBACK_HINT =
+  'Open the browser menu and choose "Install STEP TECH" (available on the live site in Chrome or Edge)';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,9 +16,7 @@ export class InstallService {
 
   private readonly manualHint = this.getManualHint();
 
-  readonly canShow = computed(
-    () => !this.installed() && (this.deferredPrompt() !== null || this.manualHint !== null),
-  );
+  readonly canShow = computed(() => !this.installed());
 
   constructor() {
     window.addEventListener('beforeinstallprompt', (event) => {
@@ -33,9 +34,7 @@ export class InstallService {
     const prompt = this.deferredPrompt();
 
     if (!prompt) {
-      if (this.manualHint) {
-        this.toastService.success(this.manualHint);
-      }
+      this.toastService.success(this.manualHint ?? FALLBACK_HINT);
       return;
     }
 
