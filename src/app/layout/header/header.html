@@ -133,6 +133,14 @@
           Logout
         </button>
       }
+
+      @if (installService.canShow()) {
+        <div class="mobile-menu__divider"></div>
+        <button type="button" class="mobile-menu__link" (click)="installApp()">
+          Install app
+          <i class="bi bi-download"></i>
+        </button>
+      }
     </div>
   }
 </header>

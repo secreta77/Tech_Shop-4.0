@@ -1,0 +1,52 @@
+@use '../../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: $color-dark;
+  color: $color-surface;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.banner i {
+  color: #f59e0b;
+}
+
+.banner--enter {
+  animation: banner-in 0.3s ease-out;
+}
+
+.banner--leave {
+  animation: banner-out 0.25s ease-in forwards;
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes banner-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}

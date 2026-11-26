@@ -8,6 +8,11 @@
   text-align: center;
 }
 
+.footer app-install-button {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
 .footer span {
   color: $color-primary;
 }

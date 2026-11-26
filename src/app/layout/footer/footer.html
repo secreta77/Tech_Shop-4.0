@@ -1,3 +1,6 @@
 <footer class="footer">
-    <p>Created by <span>IT Academy Step Georgia</span></p>
-  </footer>
+  @if (installService.canShow()) {
+    <app-install-button (installClicked)="install()" />
+  }
+  <p>Created by <span>IT Academy Step Georgia</span></p>
+</footer>

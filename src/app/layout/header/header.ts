@@ -8,6 +8,7 @@ import { CartDrawer } from '../../features/cart/components/cart-drawer/cart-draw
 import { FavoritesService } from '../../features/favorites/data-access/favorites.service';
 import { CartService } from '../../features/cart/data-access/cart.service';
 import { ProfileService } from '../../features/profile/data-access/profile.service';
+import { InstallService } from '../../features/pwa/data-access/install.service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ export class Header {
   private readonly cartService = inject(CartService)
   private readonly favoritesService = inject(FavoritesService)
   private readonly categoriesService = inject(CategoriesService)
+  protected readonly installService = inject(InstallService)
 
 
 
@@ -47,6 +49,11 @@ protected toggleMenu():void{
 
 protected closeMenu():void{
   this.menuOpen.set(false)
+}
+
+protected installApp():void{
+  this.menuOpen.set(false)
+  this.installService.install()
 }
 
 protected openCart():void{
